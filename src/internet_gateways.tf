@@ -1,5 +1,5 @@
 module "internet_gateways" {
-  source = "../../modules/internet_gateway"
+  source = "../../modules/_networking/vpc/internet_gateway"
   for_each = var.internet_gateways
 
   settings        = each.value
