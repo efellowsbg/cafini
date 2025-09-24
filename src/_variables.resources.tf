@@ -11,3 +11,5 @@ variable "iam_policies" { default = {} }
 variable "vpcs" { default = {} }
 
 variable "internet_gateways" { default = {} }
+
+variable "nat_gateways" { default = {} }
