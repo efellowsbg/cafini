@@ -9,3 +9,5 @@ variable "iam_roles" { default = {} }
 variable "iam_policies" { default = {} }
 
 variable "vpcs" { default = {} }
+
+variable "internet_gateways" { default = {} }
