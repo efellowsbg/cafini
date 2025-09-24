@@ -7,3 +7,5 @@ variable "iam_groups" { default = {} }
 variable "iam_roles" { default = {} }
 
 variable "iam_policies" { default = {} }
+
+variable "vpcs" { default = {} }
