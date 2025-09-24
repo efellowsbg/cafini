@@ -13,3 +13,5 @@ variable "vpcs" { default = {} }
 variable "internet_gateways" { default = {} }
 
 variable "nat_gateways" { default = {} }
+
+variable "route_tables" { default = {} }
