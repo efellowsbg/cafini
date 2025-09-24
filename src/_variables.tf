@@ -1,10 +1,8 @@
-variable "aws_region" {
-  description = "AWS region to deploy resources"
+variable "region" {
   type        = string
 }
 
-variable "oidc_assume_role_arn" {
-  description = "IAM Role ARN that GitHub Actions will assume via OIDC"
+variable "aws_account_id" {
   type        = string
 }
 
@@ -14,11 +12,11 @@ variable "oidc_assume_role_arn" {
 #   default     = ""
 # }
 
-variable "remote_state_account_id" {
-  description = "AWS account ID where remote Terraform states are stored (if any)"
-  type        = string
-  default     = ""
-}
+# variable "remote_state_account_id" {
+#   description = "AWS account ID where remote Terraform states are stored (if any)"
+#   type        = string
+#   default     = ""
+# }
 
 variable "global_settings" {
   description = "Global configuration for all resources, e.g., tags and inheritance behavior"
@@ -32,14 +30,14 @@ variable "global_settings" {
   }
 }
 
-variable "landingzone" {
-  description = "Landing zone metadata and tfstate dependencies for AWS accounts"
-  type = object({
-    backend_type = string
-    key          = string
-    tfstates = optional(map(object({
-      tfstate         = string
-      account_id      = string
-    })))
-  })
-}
+# variable "landingzone" {
+#   description = "Landing zone metadata and tfstate dependencies for AWS accounts"
+#   type = object({
+#     backend_type = string
+#     key          = string
+#     tfstates = optional(map(object({
+#       tfstate         = string
+#       account_id      = string
+#     })))
+#   })
+# }
