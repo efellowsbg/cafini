@@ -15,3 +15,5 @@ variable "internet_gateways" { default = {} }
 variable "nat_gateways" { default = {} }
 
 variable "route_tables" { default = {} }
+
+variable "route_table_associations" { default = {} }
