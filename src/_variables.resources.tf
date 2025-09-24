@@ -5,3 +5,5 @@ variable "iam_users" { default = {} }
 variable "iam_groups" { default = {} }
 
 variable "iam_roles" { default = {} }
+
+variable "iam_policies" { default = {} }
