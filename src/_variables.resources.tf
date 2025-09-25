@@ -23,3 +23,5 @@ variable "security_groups" { default = {} }
 variable "vpc_endpoints" { default = {} }
 
 variable "eips" { default = {} }
+
+variable "kms_keys" { default = {} }
