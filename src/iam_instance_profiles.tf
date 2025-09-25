@@ -1,7 +1,9 @@
 module "iam_instance_profiles" {
-  source = "../../modules/_iam/instance_profile"
+  source = "./modules/iam_instance_profile"
   for_each = var.iam_instance_profiles
 
   settings        = each.value
   global_settings = local.global_settings
+
+  resources = {}
 }

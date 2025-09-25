@@ -1,4 +1,5 @@
 resource "aws_kms_key" "main" {
+# TODO: Add doublecheck for missing arguments, reference to resources and dynamic blocks
   description                     = try(var.settings.description, null)
   key_usage                       = try(var.settings.key_usage, "ENCRYPT_DECRYPT")
   custom_key_store_id             = try(var.settings.custom_key_store_id, null)
@@ -12,11 +13,5 @@ resource "aws_kms_key" "main" {
   multi_region                    = try(var.settings.multi_region, false)
   xks_key_id                      = try(var.settings.xks_key_id, null)
   region                          = try(var.settings.region, null)
-
-  tags = merge(
-    {
-      Name = try(var.settings.name, null)
-    },
-    local.tags
-  )
+  tags                            = local.tags
 }

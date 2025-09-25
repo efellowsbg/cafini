@@ -1,7 +1,9 @@
 resource "aws_route_table" "main" {
+# TODO: Doublecheck for missing arguments, reference to resources and dynamic blocks
   vpc_id             = var.settings.vpc_id
   region             = try(var.settings.region, null)
   propagating_vgws   = try(var.settings.propagating_vgws, null)
+  tags = local.tags
 
   # Inline routes (optional)
   dynamic "route" {
@@ -23,11 +25,4 @@ resource "aws_route_table" "main" {
       vpc_peering_connection_id = try(route.value.vpc_peering_connection_id, null)
     }
   }
-
-  tags = merge(
-    {
-      Name = try(var.settings.name, null)
-    },
-    local.tags
-  )
 }
