@@ -5,6 +5,7 @@ module "cloudwatch_log_groups" {
 	settings        = each.value
   global_settings = local.global_settings
 
+# Add kms_keys module in resources when ready
   resources = {}
 
   # client_config = {
