@@ -1,6 +1,6 @@
 locals {
   kms_key_id = try(
-    var.resources[var.settings.kms_key_ref].arn, 
+    var.resources.kms_keys[var.settings.kms_key_ref].arn, 
     try(var.settings.kms_key_id, null)
     )
 
