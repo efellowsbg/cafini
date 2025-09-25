@@ -25,3 +25,5 @@ variable "vpc_endpoints" { default = {} }
 variable "eips" { default = {} }
 
 variable "kms_keys" { default = {} }
+
+variable "iam_instance_profiles" { default = {} }
