@@ -1,9 +1,11 @@
 module "vpcs" {
-  source = "../modules/_networking/vpc"
+  source = "./modules/_networking/vpc"
   for_each = var.vpcs
 
   settings        = each.value
   global_settings = local.global_settings
+
+  resources = {}
 
   # client_config = {
   #   landingzone_key = var.landingzone.key
