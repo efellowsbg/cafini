@@ -10,6 +10,10 @@ output "iam_users" {
   value = module.iam_users
 }
 
+output "vpcs" {
+  value = module.vpcs
+}
+
 # # output "subnets" {
 # #   value = {
 # #     for vnet_key, vnet in module.virtual_networks :
