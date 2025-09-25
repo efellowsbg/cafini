@@ -6,6 +6,10 @@ output "iam_groups" {
   value = module.iam_groups
 }
 
+output "iam_users" {
+  value = module.iam_users
+}
+
 # # output "subnets" {
 # #   value = {
 # #     for vnet_key, vnet in module.virtual_networks :
