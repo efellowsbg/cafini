@@ -14,6 +14,10 @@ output "vpcs" {
   value = module.vpcs
 }
 
+output "secretsmanager_secrets" {
+  value = module.secretsmanager_secrets
+}
+
 # # output "subnets" {
 # #   value = {
 # #     for vnet_key, vnet in module.virtual_networks :

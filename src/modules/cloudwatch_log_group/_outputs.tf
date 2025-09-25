@@ -1,7 +1,7 @@
-output "log_group_id" {
+output "id" {
   value       = aws_cloudwatch_log_group.main.id
 }
 
-output "log_group_arn" {
+output "arn" {
   value       = aws_cloudwatch_log_group.main.arn
 }
