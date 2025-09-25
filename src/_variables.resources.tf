@@ -19,3 +19,5 @@ variable "route_tables" { default = {} }
 variable "route_table_associations" { default = {} }
 
 variable "security_groups" { default = {} }
+
+variable "vpc_endpoints" { default = {} }
