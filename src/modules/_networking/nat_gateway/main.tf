@@ -9,6 +9,6 @@ resource "aws_nat_gateway" "main" {
   secondary_private_ip_address_count = try(var.settings.secondary_private_ip_address_count, null)
   secondary_private_ip_addresses    = try(var.settings.secondary_private_ip_addresses, null)
   # Explicit dependency if using public NAT
-  depends_on = try(var.settings.depends_on, null)
+  depends_on = try(var.settings.depends_on, [])
   tags = local.tags
 }

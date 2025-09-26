@@ -12,5 +12,5 @@ resource "aws_eip" "main" {
   region                      = try(var.settings.region, null)
   tags = local.tags
   # explicit dependency if needed (e.g., IGW)
-  depends_on = try(var.settings.depends_on, null)
+  depends_on = try(var.settings.depends_on, [])
 }

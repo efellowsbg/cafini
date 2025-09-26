@@ -43,7 +43,7 @@ module "route_table_associations" {
 }
 
 module "route_tables" {
-  source = ".modules/_networking/route_table"
+  source = "./modules/_networking/route_table"
   for_each = var.route_tables
 
   settings        = each.value
