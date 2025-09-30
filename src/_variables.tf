@@ -2,20 +2,16 @@ variable "region" {
   type        = string
 }
 
-variable "aws_account_id" {
-  type        = string
-}
-
-# variable "tfstate_prefix" {
-#   description = "Optional prefix/path in S3 bucket for state files"
+# variable "aws_account_id" {
 #   type        = string
-#   default     = ""
 # }
 
 # variable "remote_state_account_id" {
-#   description = "AWS account ID where remote Terraform states are stored (if any)"
 #   type        = string
-#   default     = ""
+# }
+
+# variable "tfstate_bucket" {
+#   type        = string
 # }
 
 variable "global_settings" {
