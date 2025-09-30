@@ -1,8 +1,8 @@
 module "secretsmanager_secrets" {
-  source = "./modules/secretsmanager_secret"
+  source   = "./modules/secretsmanager_secret"
   for_each = var.secretsmanager_secrets
 
-	settings        = each.value
+  settings        = each.value
   global_settings = local.global_settings
 
   resources = {

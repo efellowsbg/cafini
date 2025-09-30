@@ -1,5 +1,5 @@
 module "vpcs" {
-  source = "./modules/_networking/vpc"
+  source   = "./modules/_networking/vpc"
   for_each = var.vpcs
 
   settings        = each.value
@@ -16,34 +16,34 @@ module "vpcs" {
 }
 
 module "eips" {
-    source = "./modules/_networking/eip"
-    for_each = var.eips
+  source   = "./modules/_networking/eip"
+  for_each = var.eips
 
-    settings        = each.value
-    global_settings = local.global_settings
+  settings        = each.value
+  global_settings = local.global_settings
 
-    resources = {}
-    
-    # client_config = {
-    #   landingzone_key = var.landingzone.key
-    # }
+  resources = {}
+
+  # client_config = {
+  #   landingzone_key = var.landingzone.key
+  # }
 }
 
 module "route_table_associations" {
-    source = "./modules/_networking/route_table_association"
-    for_each = var.route_table_associations
+  source   = "./modules/_networking/route_table_association"
+  for_each = var.route_table_associations
 
-    settings        = each.value
-    global_settings = local.global_settings
+  settings        = each.value
+  global_settings = local.global_settings
 
-    resources = {}
-    # client_config = {
-    #   landingzone_key = var.landingzone.key
-    # }
+  resources = {}
+  # client_config = {
+  #   landingzone_key = var.landingzone.key
+  # }
 }
 
 module "route_tables" {
-  source = "./modules/_networking/route_table"
+  source   = "./modules/_networking/route_table"
   for_each = var.route_tables
 
   settings        = each.value
@@ -57,7 +57,7 @@ module "route_tables" {
 }
 
 module "vpc_endpoints" {
-  source = "./modules/_networking/vpc_endpoint"
+  source   = "./modules/_networking/vpc_endpoint"
   for_each = var.vpc_endpoints
 
   settings        = each.value
@@ -71,7 +71,7 @@ module "vpc_endpoints" {
 }
 
 module "nat_gateways" {
-  source = "./modules/_networking/nat_gateway"
+  source   = "./modules/_networking/nat_gateway"
   for_each = var.nat_gateways
 
   settings        = each.value
@@ -85,7 +85,7 @@ module "nat_gateways" {
 }
 
 module "internet_gateways" {
-  source = "./modules/_networking/internet_gateway"
+  source   = "./modules/_networking/internet_gateway"
   for_each = var.internet_gateways
 
   settings        = each.value
@@ -99,14 +99,14 @@ module "internet_gateways" {
 }
 
 module "security_groups" {
-  source = "./modules/_networking/security_group"
+  source   = "./modules/_networking/security_group"
   for_each = var.security_groups
 
   settings        = each.value
   global_settings = local.global_settings
 
   resources = {}
-  
+
   # client_config = {
   #   landingzone_key = var.landingzone.key
   # }

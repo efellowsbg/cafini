@@ -63,7 +63,7 @@ output "internet_gateways" {
 
 output "security_groups" {
   value = module.security_groups
-  
+
 }
 
 output "kms_keys" {

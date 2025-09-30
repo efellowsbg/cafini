@@ -1,0 +1,9 @@
+# self-protection
+CODEOWNERS @efellowsbg/CAFini
+
+# pipelines
+.github @efellowsbg/CAFini
+.vscode @efellowsbg/CAFini
+
+# source code
+src @efellowsbg/CAFini

@@ -1,9 +1,9 @@
 output "id" {
-  value       = aws_vpc.main.id
+  value = aws_vpc.main.id
 }
 
 output "arn" {
-  value       = aws_vpc.main.arn
+  value = aws_vpc.main.arn
 }
 
 output "subnets" {

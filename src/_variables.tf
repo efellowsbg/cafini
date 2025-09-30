@@ -1,5 +1,5 @@
 variable "region" {
-  type        = string
+  type = string
 }
 
 # variable "aws_account_id" {
@@ -17,8 +17,8 @@ variable "region" {
 variable "global_settings" {
   description = "Global configuration for all resources, e.g., tags and inheritance behavior"
   type = object({
-    tags                    = map(string)
-    inherit_account_tags    = bool
+    tags                 = map(string)
+    inherit_account_tags = bool
   })
   default = {
     tags                 = {}

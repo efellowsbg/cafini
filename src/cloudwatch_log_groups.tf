@@ -1,8 +1,8 @@
 module "cloudwatch_log_groups" {
-  source = "./modules/cloudwatch_log_group"
+  source   = "./modules/cloudwatch_log_group"
   for_each = var.cloudwatch_log_groups
 
-	settings        = each.value
+  settings        = each.value
   global_settings = local.global_settings
 
   resources = {
