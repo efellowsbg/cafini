@@ -29,3 +29,5 @@ variable "kms_keys" { default = {} }
 variable "iam_instance_profiles" { default = {} }
 
 variable "secretsmanager_secrets" { default = {} }
+
+variable "db_subnet_groups" { default = {} }

@@ -69,3 +69,7 @@ output "security_groups" {
 output "kms_keys" {
   value = module.kms_keys
 }
+
+output "db_subnet_groups" {
+  value = module.db_subnet_groups
+}
