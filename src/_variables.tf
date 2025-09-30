@@ -2,17 +2,17 @@ variable "region" {
   type        = string
 }
 
-variable "aws_account_id" {
-  type        = string
-}
+# variable "aws_account_id" {
+#   type        = string
+# }
 
-variable "remote_state_account_id" {
-  type        = string
-}
+# variable "remote_state_account_id" {
+#   type        = string
+# }
 
-variable "tfstate_bucket" {
-  type        = string
-}
+# variable "tfstate_bucket" {
+#   type        = string
+# }
 
 variable "global_settings" {
   description = "Global configuration for all resources, e.g., tags and inheritance behavior"
