@@ -1,8 +1,8 @@
 module "iam_users" {
-  source = "./modules/iam_user"
+  source   = "./modules/iam_user"
   for_each = var.iam_users
 
-	settings        = each.value
+  settings        = each.value
   global_settings = local.global_settings
 
   resources = {}

@@ -1,16 +1,16 @@
 resource "aws_route_table" "main" {
-# TODO: Doublecheck for missing arguments, reference to resources and dynamic blocks
-  vpc_id             = var.settings.vpc_id
-  region             = try(var.settings.region, null)
-  propagating_vgws   = try(var.settings.propagating_vgws, null)
-  tags = local.tags
+  # TODO: Doublecheck for missing arguments, reference to resources and dynamic blocks
+  vpc_id           = var.settings.vpc_id
+  region           = try(var.settings.region, null)
+  propagating_vgws = try(var.settings.propagating_vgws, null)
+  tags             = local.tags
 
   # Inline routes (optional)
   dynamic "route" {
     for_each = try(var.settings.routes, [])
     content {
-      cidr_block                = try(route.value.cidr_block, null)
-      ipv6_cidr_block           = try(route.value.ipv6_cidr_block, null)
+      cidr_block                 = try(route.value.cidr_block, null)
+      ipv6_cidr_block            = try(route.value.ipv6_cidr_block, null)
       destination_prefix_list_id = try(route.value.destination_prefix_list_id, null)
 
       carrier_gateway_id        = try(route.value.carrier_gateway_id, null)

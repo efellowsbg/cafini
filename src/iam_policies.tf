@@ -1,8 +1,8 @@
 module "iam_policies" {
-  source = "./modules/iam_policy"
+  source   = "./modules/iam_policy"
   for_each = var.iam_policies
 
-	settings        = each.value
+  settings        = each.value
   global_settings = local.global_settings
 
   resources = {}
