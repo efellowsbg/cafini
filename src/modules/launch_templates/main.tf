@@ -26,8 +26,8 @@ resource "aws_launch_template" "main" {
     content {
 
       memory_mib {
-        min = memory_mib.value.min
-        max = try(memory_mib.value.max, null)
+        min = var.settings.instance_requirements.memory_mib.min
+        max = try(var.settings.instance_requirements.memory_mib.max, null)
       }
 
       vcpu_count {
@@ -311,7 +311,7 @@ resource "aws_launch_template" "main" {
 
         content {
           tcp_established_timeout = try(connection_tracking_specification.value.tcp_established_timeout, null)
-          udp_stream_timeout      = try(connection_tracking_specification.value.udp_timeout, null)
+          udp_stream_timeout      = try(connection_tracking_specification.value.udp_stream_timeout, null)
           udp_timeout             = try(connection_tracking_specification.value.udp_timeout, null)
         }
       }
