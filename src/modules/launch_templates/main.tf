@@ -10,16 +10,114 @@ resource "aws_launch_template" "main" {
   ebs_optimized                        = try(var.settings.ebs_optimized, null)
   image_id                             = try(var.settings.image_id, null)
   instance_initiated_shutdown_behavior = try(var.settings.instance_initiated_shutdown_behavior, null)
-  instance_requirements                = try(var.settings.instance_requirements, null)
   instance_type                        = try(var.settings.instance_type, null)
   kernel_id                            = try(var.settings.kernel_id, null)
   key_name                             = try(var.settings.key_name, null)
   ram_disk_id                          = try(var.settings.ram_disk_id, null)
   security_group_names                 = try(var.settings.security_group_names, null)
-  tag_specifications                   = try(var.settings.tag_specifications, null)
   update_default_version               = try(var.settings.update_default_version, null)
   user_data                            = try(var.settings.user_data, null)
+  vpc_security_group_ids               = try(var.settings.vpc_security_group_ids, null)
   tags                                 = local.tags
+
+  dynamic "instance_requirements" {
+    for_each = try(var.settings.instance_requirements, {})
+
+    content {
+
+      memory_mib {
+        min = memory_mib.value.min
+        max = try(memory_mib.value.max, null)
+      }
+
+      vcpu_count {
+        min = vcpu_count.value.min
+        max = try(vcpu_count.value.max, null)
+      }
+
+      accelerator_manufacturers                               = try(instance_requirements.value.accelerator_manufacturers, null)
+      accelerator_names                                       = try(instance_requirements.value.accelerator_names, null)
+      accelerator_types                                       = try(instance_requirements.value.accelerator_types, null)
+      allowed_instance_types                                  = try(instance_requirements.value.allowed_instance_types, null)
+      bare_metal                                              = try(instance_requirements.value.bare_metal, null)
+      burstable_performance                                   = try(instance_requirements.value.burstable_performance, null)
+      cpu_manufacturers                                       = try(instance_requirements.value.cpu_manufacturers, null)
+      excluded_instance_types                                 = try(instance_requirements.value.excluded_instance_types, null)
+      instance_generations                                    = try(instance_requirements.value.instance_generations, null)
+      local_storage                                           = try(instance_requirements.value.local_storage, null)
+      local_storage_types                                     = try(instance_requirements.value.local_storage_types, null)
+      max_spot_price_as_percentage_of_optimal_on_demand_price = try(instance_requirements.value.max_spot_price_as_percentage_of_optimal_on_demand_price, null)
+      on_demand_max_price_percentage_over_lowest_price        = try(instance_requirements.value.on_demand_max_price_percentage_over_lowest_price, null)
+      require_hibernate_support                               = try(instance_requirements.value.require_hibernate_support, null)
+      spot_max_price_percentage_over_lowest_price             = try(instance_requirements.value.spot_max_price, null)
+
+      dynamic "total_local_storage_gb" {
+        for_each = try(instance_requirements.value.total_local_storage_gb, {})
+
+        content {
+          max = try(total_local_storage_gb.value.max, null)
+          min = try(total_local_storage_gb.value.min, null)
+        }
+      }
+
+      dynamic "memory_gib_per_vcpu" {
+        for_each = try(instance_requirements.value.memory_gib_per_vcpu, {})
+
+        content {
+          max = try(memory_gib_per_vcpu.value.max, null)
+          min = try(memory_gib_per_vcpu.value.min, null)
+        }
+      }
+
+      dynamic "network_bandwidth_gbps" {
+        for_each = try(instance_requirements.value.network_bandwidth_gbps, {})
+
+        content {
+          max = try(network_bandwidth_gbps.value.max, null)
+          min = try(network_bandwidth_gbps.value.min, null)
+        }
+      }
+
+      dynamic "network_interface_count" {
+        for_each = try(instance_requirements.value.network_interface_count, {})
+
+        content {
+          max = try(network_interface_count.value.max, null)
+          min = try(network_interface_count.value.min, null)
+        }
+
+      }
+
+      dynamic "baseline_ebs_bandwidth_mbps" {
+        for_each = try(instance_requirements.value.baseline_ebs_bandwidth_mbps, {})
+
+        content {
+          max = try(baseline_ebs_bandwidth_mbps.value.max, null)
+          min = try(baseline_ebs_bandwidth_mbps.value.min, null)
+        }
+      }
+
+      dynamic "accelerator_total_memory_mib" {
+        for_each = try(instance_requirements.value.accelerator_total_memory_mib, {})
+
+        content {
+          max = try(accelerator_total_memory_mib.value.max, null)
+          min = try(accelerator_total_memory_mib.value.min, null)
+        }
+      }
+
+      dynamic "accelerator_count" {
+        for_each = try(instance_requirements.value.accelerator_count, {})
+
+        content {
+          max = try(accelerator_count.value.max, null)
+          min = try(accelerator_count.value.min, null)
+        }
+
+      }
+
+    }
+  }
 
   dynamic "block_device_mappings" {
     for_each = try(var.settings.block_device_mappings, {})
@@ -170,27 +268,26 @@ resource "aws_launch_template" "main" {
     for_each = try(var.settings.network_interfaces, {})
 
     content {
-      associate_carrier_ip_address      = try(network_interfaces.value.associate_carrier_ip_address, null)
-      associate_public_ip_address       = try(network_interfaces.value.associate_public_ip_address, null)
-      delete_on_termination             = try(network_interfaces.value.delete_on_termination, null)
-      description                       = try(network_interfaces.value.description, null)
-      device_index                      = try(network_interfaces.value.device_index, null)
-      interface_type                    = try(network_interfaces.value.interface_type, null)
-      ipv4_prefix_count                 = try(network_interfaces.value.ipv4_prefix_count, null)
-      ipv4_prefixes                     = try(network_interfaces.value.ipv4_prefixes, null)
-      ipv6_addresses                    = try(network_interfaces.value.ipv6_addresses, null)
-      ipv6_address_count                = try(network_interfaces.value.ipv6_address_count, null)
-      ipv6_prefix_count                 = try(network_interfaces.value.ipv6_prefix_count, null)
-      ipv6_prefixes                     = try(network_interfaces.value.ipv6_prefixes, null)
-      network_interface_id              = try(network_interfaces.value.network_interface_id, null)
-      network_card_index                = try(network_interfaces.value.network_card_index, null)
-      primary_ipv6                      = try(network_interfaces.value.primary_ipv6, null)
-      private_ip_address                = try(network_interfaces.value.private_ip_address, null)
-      ipv4_address_count                = try(network_interfaces.value.ipv4_address_count, null)
-      ipv4_addresses                    = try(network_interfaces.value.ipv4_addresses, null)
-      security_groups                   = try(network_interfaces.value.security_groups, null)
-      subnet_id                         = try(network_interfaces.value.subnet_id, null)
-      connection_tracking_specification = try(network_interfaces.value.connection_tracking_specification, null)
+      associate_carrier_ip_address = try(network_interfaces.value.associate_carrier_ip_address, null)
+      associate_public_ip_address  = try(network_interfaces.value.associate_public_ip_address, null)
+      delete_on_termination        = try(network_interfaces.value.delete_on_termination, null)
+      description                  = try(network_interfaces.value.description, null)
+      device_index                 = try(network_interfaces.value.device_index, null)
+      interface_type               = try(network_interfaces.value.interface_type, null)
+      ipv4_prefix_count            = try(network_interfaces.value.ipv4_prefix_count, null)
+      ipv4_prefixes                = try(network_interfaces.value.ipv4_prefixes, null)
+      ipv6_addresses               = try(network_interfaces.value.ipv6_addresses, null)
+      ipv6_address_count           = try(network_interfaces.value.ipv6_address_count, null)
+      ipv6_prefix_count            = try(network_interfaces.value.ipv6_prefix_count, null)
+      ipv6_prefixes                = try(network_interfaces.value.ipv6_prefixes, null)
+      network_interface_id         = try(network_interfaces.value.network_interface_id, null)
+      network_card_index           = try(network_interfaces.value.network_card_index, null)
+      primary_ipv6                 = try(network_interfaces.value.primary_ipv6, null)
+      private_ip_address           = try(network_interfaces.value.private_ip_address, null)
+      ipv4_address_count           = try(network_interfaces.value.ipv4_address_count, null)
+      ipv4_addresses               = try(network_interfaces.value.ipv4_addresses, null)
+      security_groups              = try(network_interfaces.value.security_groups, null)
+      subnet_id                    = try(network_interfaces.value.subnet_id, null)
 
       dynamic "ena_srd_specification" {
         for_each = try(network_interfaces.value.ena_srd_specification, {})
@@ -206,6 +303,16 @@ resource "aws_launch_template" "main" {
             }
 
           }
+        }
+      }
+
+      dynamic "connection_tracking_specification" {
+        for_each = try(network_interfaces.value.connection_tracking_specification, {})
+
+        content {
+          tcp_established_timeout = try(connection_tracking_specification.value.tcp_established_timeout, null)
+          udp_stream_timeout      = try(connection_tracking_specification.value.udp_timeout, null)
+          udp_timeout             = try(connection_tracking_specification.value.udp_timeout, null)
         }
       }
     }
@@ -234,6 +341,15 @@ resource "aws_launch_template" "main" {
       enable_resource_name_dns_a_record    = try(private_dns_name_options.value.enable_resource_name_dns_a_record, null)
       enable_resource_name_dns_aaaa_record = try(private_dns_name_options.value.enable_resource_name_dns_aaaa_record, null)
       hostname_type                        = try(private_dns_name_options.value.hostname_type, null)
+    }
+  }
+
+  dynamic "tag_specifications" {
+    for_each = try(var.settings.tag_specifications, {})
+
+    content {
+      resource_type = tag_specifications.value.resource_type
+      tags          = tag_specifications.value.tags
     }
   }
 }
