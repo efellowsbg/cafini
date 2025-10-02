@@ -1,11 +1,11 @@
 module "internet_gateway" {
-  source = "./modules/_networking/internet_gateway"
+  source   = "./modules/_networking/internet_gateway"
   for_each = var.internet_gateways
-  settings  = each.value
+
+  settings        = each.value
   global_settings = local.global_settings
+
   resources = {
-    vpc = {
-      (each.key) = module.vpcs[each.value.vpc_key].aws_vpc.main
-    }
+    vpcs = module.vpcs
   }
 }
