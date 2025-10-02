@@ -18,20 +18,6 @@ locals {
     )
   ] : try(var.settings.vpc_security_group_ids, null)
 
-  # security_group_names = [
-  #   for sg_ref in try(var.settings.security_group_names_ref, null) : try(
-  #     var.resources.security_groups[sg_ref].name,
-  #     null
-  #   )
-  # ]
-
-  # vpc_security_group_ids = [
-  #   for sg_ref in try(var.settings.vpc_security_group_ids_ref, []) : try(
-  #     var.resources.security_groups[sg_ref].id,
-  #     null
-  #   )
-  # ]
-
   capacity_reservation_id = try(
     var.resources.ec2_capacity_reservations[
       var.settings.capacity_reservation_specification.capacity_reservation_target.capacity_reservation_ref
