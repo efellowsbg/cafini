@@ -6,14 +6,14 @@ locals {
 
   security_group_names = [
     for sg_ref in try(var.settings.security_group_names_ref, []) : try(
-      var.resource.security_groups[sg_ref].name,
+      var.resources.security_groups[sg_ref].name,
       null
     )
   ]
 
   vpc_security_group_ids = [
     for sg_ref in try(var.settings.vpc_security_group_ids_ref, []) : try(
-      var.resource.security_groups[sg_ref].id,
+      var.resources.security_groups[sg_ref].id,
       null
     )
   ]
