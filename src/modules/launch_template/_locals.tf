@@ -4,19 +4,33 @@ locals {
     try(var.settings.key_name, null)
   )
 
-  security_group_names = [
+  security_group_names = length(try(var.settings.security_group_names_ref, [])) > 0 ? [
     for sg_ref in try(var.settings.security_group_names_ref, []) : try(
       var.resources.security_groups[sg_ref].name,
       null
     )
-  ]
+  ] : try(var.settings.security_group_names, null)
 
-  vpc_security_group_ids = [
+  vpc_security_group_ids = length(try(var.settings.vpc_security_group_ids_ref, [])) > 0 ? [
     for sg_ref in try(var.settings.vpc_security_group_ids_ref, []) : try(
-      var.resources.security_groups[sg_ref].id,
+      var.resources.security_groups[sg_ref].name,
       null
     )
-  ]
+  ] : try(var.settings.vpc_security_group_ids, null)
+
+  # security_group_names = [
+  #   for sg_ref in try(var.settings.security_group_names_ref, null) : try(
+  #     var.resources.security_groups[sg_ref].name,
+  #     null
+  #   )
+  # ]
+
+  # vpc_security_group_ids = [
+  #   for sg_ref in try(var.settings.vpc_security_group_ids_ref, []) : try(
+  #     var.resources.security_groups[sg_ref].id,
+  #     null
+  #   )
+  # ]
 
   capacity_reservation_id = try(
     var.resources.ec2_capacity_reservations[
