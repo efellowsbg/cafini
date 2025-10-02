@@ -6,13 +6,14 @@ module "instances" {
   global_settings = local.global_settings
 
   resources = {
-    # iam_instance_profiles     = module.iam_instance_profiles
-    # ec2_capacity_reservations = module.ec2_capacity_reservations
-    # ec2_hosts                 = module.ec2_hosts
-    # resourcegroups_groups     = module.resourcegroups_groups
-    # placement_groups          = module.placement_groups
-    # availability_zones        = module.availability_zones
-    # kms_keys                  = module.kms_keys
+    availability_zones        = module.availability_zones
+    ec2_capacity_reservations = module.ec2_capacity_reservations
+    kms_keys                  = module.kms_keys
+    ec2_hosts                 = module.ec2_hosts
+    resourcegroups_groups     = module.resourcegroups_groups
+    iam_instance_profiles     = module.iam_instance_profiles
+    launch_templates          = module.launch_templates
+    placement_groups          = module.placement_groups
     # security_groups           = module.security_groups
     # network_interfaces        = module.network_interfaces
     # vpcs = module.vpcs
