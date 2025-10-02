@@ -33,3 +33,5 @@ variable "secretsmanager_secrets" { default = {} }
 variable "db_subnet_groups" { default = {} }
 
 variable "launch_templates" { default = {} }
+
+variable "instances" { default = {} }
