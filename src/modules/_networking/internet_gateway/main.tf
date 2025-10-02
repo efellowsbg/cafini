@@ -1,10 +1,11 @@
 resource "aws_internet_gateway" "main" {
+  for_each = var.resources.vpc
+
   vpc_id = try(
     var.settings.vpc_id,
-    try(var.resources.vpc[each.key].id, null),
+    try(each.value.id, null),
     null
   )
 
-  region = try(var.settings.region, null)
   tags   = local.tags
 }
