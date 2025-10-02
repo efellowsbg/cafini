@@ -297,13 +297,11 @@ resource "aws_launch_template" "main" {
         (network_interfaces.value.subnet_id != null ? network_interfaces.value.subnet_id : null)
       )
 
-      security_groups = (
-        network_interfaces.value.security_group_refs != null && length(network_interfaces.value.security_group_refs) > 0 ?
-        [
-          for sg_ref in network_interfaces.value.security_group_refs :
-          var.resources.security_groups[sg_ref].id
-        ] :
-        (network_interfaces.value.security_group_ids != null ? network_interfaces.value.security_group_ids : null)
+      security_groups = (length(try(network_interfaces.value.security_group_refs, [])) > 0 ?
+        [for sg_ref in network_interfaces.value.security_group_refs : var.resources.security_groups[sg_ref].id] :
+        length(try(network_interfaces.value.security_group_ids, [])) > 0 ?
+        network_interfaces.value.security_group_ids :
+        null
       )
       # TODO: The whole block and it's dynamic cnotents can be a single or no block
       dynamic "ena_srd_specification" {
