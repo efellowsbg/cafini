@@ -1,6 +1,6 @@
 internet_gateways = {
   igw1 = {
-    vpc_key = "vpc_test"
+    vpc_id = module.vpcs["vpc_test"].aws_vpc.main.id
     tags = {
       Name = "igw1"
     }

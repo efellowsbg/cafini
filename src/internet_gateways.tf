@@ -4,7 +4,6 @@ module "internet_gateway" {
 
   settings        = each.value
   global_settings = local.global_settings
-
   resources = {
     vpcs = module.vpcs
   }
