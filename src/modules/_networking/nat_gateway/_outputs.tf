@@ -1,7 +1,7 @@
 output "id" {
-  value = aws_nat_gateway.main.id
+  value       = { for k, ngw in aws_nat_gateway.main : k => ngw.id }
 }
 
 output "network_interface_id" {
-  value = aws_nat_gateway.main.network_interface_id
+  value       = { for k, ngw in aws_nat_gateway.main : k => ngw.network_interface_id }
 }
