@@ -3,5 +3,9 @@ module "internet_gateway" {
   for_each = var.internet_gateways
   settings  = each.value
   global_settings = local.global_settings
-  resources = {}
+  resources = {
+    vpc = {
+      (each.key) = module.vpcs[each.value.vpc_key].aws_vpc.main
+    }
+  }
 }
