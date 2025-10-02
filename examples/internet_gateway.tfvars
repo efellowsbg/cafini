@@ -1,4 +1,8 @@
-settings = {
-  region  = "eu-west-1"
-  vpc_id = "vpc_test"
+internet_gateways = {
+  igw1 = {
+    vpc_id = module.vpcs["vpc_test"].aws_vpc.main.id
+    tags = {
+      Name = "igw1"
+    }
+  }
 }
