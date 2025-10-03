@@ -23,9 +23,6 @@ module "eips" {
   global_settings = local.global_settings
 
   resources = {
-    instances          = module.instances
-    network_interfaces = module.network_interfaces
-    ipam_pools         = module.ipam_pools
   }
 
   # client_config = {
