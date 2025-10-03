@@ -79,5 +79,5 @@ output "launch_templates" {
 }
 
 output "ec2_instances" {
-  value = module.instances
+  value = module.ec2_instances
 }

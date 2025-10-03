@@ -27,7 +27,6 @@ resource "aws_instance" "main" {
   user_data_replace_on_change          = try(var.settings.user_data_replace_on_change, null)
   volume_tags                          = try(var.settings.volume_tags, null)
   subnet_id                            = local.subnet_id
-  primary_network_interface_id         = local.primary_network_interface_id
   security_groups                      = local.security_groups
   availability_zone                    = local.availability_zone
   host_id                              = local.host_id

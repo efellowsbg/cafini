@@ -37,11 +37,6 @@ locals {
     )
   ] : try(var.settings.vpc_security_group_ids, null)
 
-  primary_network_interface_id = try(
-    var.resources.network_interfaces[var.settings.primary_network_interface_id_ref].id,
-    try(var.settings.primary_network_interface_id, null)
-  )
-
   network_interface_id = try(
     var.resources.network_interfaces[var.settings.primary_network_interface.network_interface_ref].id,
     try(var.settings.primary_network_interface.network_interface_id, null)
@@ -51,22 +46,6 @@ locals {
     var.resources.vpcs[split("/", var.settings.subnet_ref)[0]].subnets[split("/", var.settings.subnet_ref)[1]].id,
     try(var.settings.subnet_id, null)
   )
-
-  # iam_instance_profile_arn = try(
-  #   var.resources.iam_instance_profiles[var.settings.iam_instance_profile.arn_ref].arn,
-  #   try(var.settings.iam_instance_profile.arn, null)
-  # )
-
-
-  # placement_group_name = try(
-  #   var.resources.placement_groups[var.settings.placement.group_name_ref].name,
-  #   try(var.settings.placement.group_name, null)
-  # )
-
-  # placement_group_id = try(
-  #   var.resources.placement_groups[var.settings.placement.group_id_ref].id,
-  #   try(var.settings.placement.group_id, null)
-  # )
 
   placement_group_name = try(
     var.resources.placement_groups[var.settings.placement_group_name_ref].name,
