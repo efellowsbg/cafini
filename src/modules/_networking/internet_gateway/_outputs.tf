@@ -5,3 +5,7 @@ output "id" {
 output "arn" {
   value = aws_internet_gateway.main.arn
 }
+
+output "internet_gateway" {
+  value = aws_internet_gateway.main
+}
