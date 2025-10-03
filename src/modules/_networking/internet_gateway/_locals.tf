@@ -7,9 +7,6 @@ locals {
 
   tags = merge(
     var.global_settings.tags,
-    {
-      "Name" = try(var.settings.name, null)
-    },
     try(var.settings.tags, {})
   )
 }
