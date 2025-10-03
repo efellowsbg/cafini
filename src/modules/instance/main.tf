@@ -1,5 +1,6 @@
 resource "aws_instance" "main" {
   # TODO: Add ability to attach more than one nics
+  # TODO: Atatch primary nic on creation
   # Region param suppose to fallback to the default region from the provider if not set
   instance_type                        = try(var.settings.launch_template, var.settings.instance_type)
   region                               = try(var.settings.region, null)
@@ -41,6 +42,19 @@ resource "aws_instance" "main" {
 
   enclave_options {
     enabled = try(var.settings.enclave_options.enabled, false)
+  }
+
+  maintenance_options {
+    auto_recovery = try(var.settings.maintenance_options.auto_recovery, "default")
+  }
+
+  dynamic "primary_network_interface" {
+    for_each = can(var.settings.primary_network_interface) ? [1] : []
+
+    content {
+      delete_on_termination = try(var.settings.primary_network_interface.delete_on_termination, true)
+      network_interface_id  = local.network_interface_id
+    }
   }
 
   dynamic "capacity_reservation_specification" {
@@ -106,10 +120,6 @@ resource "aws_instance" "main" {
       virtual_name = try(ephemeral_block_device.value.virtual_name, null)
       no_device    = try(ephemeral_block_device.value.no_device, null)
     }
-  }
-
-  maintenance_options {
-    auto_recovery = try(var.settings.maintenance_options.auto_recovery, "default")
   }
 
   dynamic "instance_market_options" {

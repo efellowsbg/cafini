@@ -42,6 +42,11 @@ locals {
     try(var.settings.primary_network_interface_id, null)
   )
 
+  network_interface_id = try(
+    var.resources.network_interfaces[var.settings.primary_network_interface.network_interface_ref].id,
+    try(var.settings.primary_network_interface.network_interface_id, null)
+  )
+
   subnet_id = try(
     var.resources.vpcs[split("/", var.settings.subnet_ref)[0]].subnets[split("/", var.settings.subnet_ref)[1]].id,
     try(var.settings.subnet_id, null)
