@@ -4,7 +4,7 @@ resource "aws_nat_gateway" "main" {
   private_ip                         = try(var.settings.private_ip, null)
   region                             = try(var.settings.region, null)
   subnet_id                          = local.subnet_id
-  secondary_allocation_ids           = try(var.settings.secondary_allocation_ids, null)
+  secondary_allocation_ids           = local.secondary_allocation_ids
   secondary_private_ip_address_count = try(var.settings.secondary_private_ip_address_count, null)
   secondary_private_ip_addresses     = try(var.settings.secondary_private_ip_addresses, null)
 
