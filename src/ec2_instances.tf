@@ -1,6 +1,6 @@
-module "instances" {
-  source   = "./modules/instance"
-  for_each = var.instances
+module "ec2_instances" {
+  source   = "./modules/ec_instance"
+  for_each = var.ec2_instances
 
   settings        = each.value
   global_settings = local.global_settings

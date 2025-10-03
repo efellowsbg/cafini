@@ -34,4 +34,4 @@ variable "db_subnet_groups" { default = {} }
 
 variable "launch_templates" { default = {} }
 
-variable "instances" { default = {} }
+variable "ec2_instances" { default = {} }
