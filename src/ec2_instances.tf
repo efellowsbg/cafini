@@ -1,5 +1,5 @@
 module "ec2_instances" {
-  source   = "./modules/ec_instance"
+  source   = "./modules/ec2_instance"
   for_each = var.ec2_instances
 
   settings        = each.value
