@@ -1,6 +1,4 @@
 resource "aws_internet_gateway" "main" {
-  # TODO: Doublecheck for missing arguments, reference to resources and dynamic blocks
-  vpc_id = try(var.settings.vpc_id, null)
-  region = try(var.settings.region, null)
+  vpc_id = local.vpc_id
   tags   = local.tags
 }
