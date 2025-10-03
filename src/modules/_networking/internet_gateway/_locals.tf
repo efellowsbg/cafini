@@ -1,8 +1,7 @@
 locals {
   vpc_id = try(
     var.resources.vpcs[var.settings.vpc_ref].id,
-    var.settings.vpc_id,
-    null
+    try(var.settings.vpc_id, null)
   )
 
   tags = merge(
