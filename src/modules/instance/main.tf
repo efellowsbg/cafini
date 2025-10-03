@@ -1,5 +1,5 @@
 resource "aws_instance" "main" {
-  # security_groups, private_dns_name_options, primary_network_interface, network_interface, subnet_id
+  # TODO: Add ability to attach more than one nics
   # Region param suppose to fallback to the default region from the provider if not set
   instance_type                        = try(var.settings.launch_template, var.settings.instance_type)
   region                               = try(var.settings.region, null)
@@ -25,6 +25,9 @@ resource "aws_instance" "main" {
   user_data_base64                     = try(var.settings.user_data_base64, null)
   user_data_replace_on_change          = try(var.settings.user_data_replace_on_change, null)
   volume_tags                          = try(var.settings.volume_tags, null)
+  subnet_id                            = local.subnet_id
+  primary_network_interface_id         = local.primary_network_interface_id
+  security_groups                      = local.security_groups
   availability_zone                    = local.availability_zone
   host_id                              = local.host_id
   host_resource_group_arn              = local.host_resource_group_arn
@@ -35,6 +38,10 @@ resource "aws_instance" "main" {
   tags                                 = local.tags
   #TODO: Create pair from this resource
   key_name = local.key_name
+
+  enclave_options {
+    enabled = try(var.settings.enclave_options.enabled, false)
+  }
 
   dynamic "capacity_reservation_specification" {
     for_each = can(var.settings.capacity_reservation_specification) ? [1] : []
@@ -101,10 +108,6 @@ resource "aws_instance" "main" {
     }
   }
 
-  enclave_options {
-    enabled = try(var.settings.enclave_options.enabled, false)
-  }
-
   maintenance_options {
     auto_recovery = try(var.settings.maintenance_options.auto_recovery, "default")
   }
@@ -168,283 +171,13 @@ resource "aws_instance" "main" {
     }
   }
 
-  # dynamic "maintenance_options" {
-  #   for_each = can(var.settings.maintenance_options) ? [1] : []
+  dynamic "private_dns_name_options" {
+    for_each = can(var.settings.private_dns_name_options) ? [1] : []
 
-  #   content {
-  #     auto_recovery = try(var.settings.maintenance_options.auto_recovery, null)
-  #   }
-  # }
-
-  # dynamic "hibernation_options" {
-  #   for_each = can(var.settings.hibernation_options) ? [1] : []
-
-  #   content {
-  #     configured = try(var.settings.hibernation_options.configured, null)
-  #   }
-  # }
-
-  # dynamic "enclave_options" {
-  #   for_each = can(var.settings.enclave_options) ? [1] : []
-
-  #   content {
-  #     enabled = try(var.settings.enclave_options.enabled, null)
-  #   }
-  # }
-
-  # dynamic "instance_requirements" {
-  #   for_each = can(var.settings.instance_requirements) ? [1] : []
-
-  #   content {
-
-  #     memory_mib {
-  #       min = var.settings.instance_requirements.memory_mib.min
-  #       max = try(var.settings.instance_requirements.memory_mib.max, null)
-  #     }
-
-  #     vcpu_count {
-  #       min = var.settings.instance_requirements.vcpu_count.min
-  #       max = try(var.settings.instance_requirements.vcpu_count.max, null)
-  #     }
-
-  #     accelerator_manufacturers                               = try(var.settings.instance_requirements.accelerator_manufacturers, null)
-  #     accelerator_names                                       = try(var.settings.instance_requirements.accelerator_names, null)
-  #     accelerator_types                                       = try(var.settings.instance_requirements.accelerator_types, null)
-  #     allowed_instance_types                                  = try(var.settings.instance_requirements.allowed_instance_types, null)
-  #     bare_metal                                              = try(var.settings.instance_requirements.bare_metal, null)
-  #     burstable_performance                                   = try(var.settings.instance_requirements.burstable_performance, null)
-  #     cpu_manufacturers                                       = try(var.settings.instance_requirements.cpu_manufacturers, null)
-  #     excluded_instance_types                                 = try(var.settings.instance_requirements.excluded_instance_types, null)
-  #     instance_generations                                    = try(var.settings.instance_requirements.instance_generations, null)
-  #     local_storage                                           = try(var.settings.instance_requirements.local_storage, null)
-  #     local_storage_types                                     = try(var.settings.instance_requirements.local_storage_types, null)
-  #     max_spot_price_as_percentage_of_optimal_on_demand_price = try(var.settings.instance_requirements.max_spot_price_as_percentage_of_optimal_on_demand_price, null)
-  #     on_demand_max_price_percentage_over_lowest_price        = try(var.settings.instance_requirements.on_demand_max_price_percentage_over_lowest_price, null)
-  #     require_hibernate_support                               = try(var.settings.instance_requirements.require_hibernate_support, null)
-  #     spot_max_price_percentage_over_lowest_price             = try(var.settings.instance_requirements.spot_max_price, null)
-
-  #     dynamic "total_local_storage_gb" {
-  #       for_each = can(var.settings.instance_requirements.total_local_storage_gb) ? [1] : []
-
-  #       content {
-  #         max = try(var.settings.instance_requirements.total_local_storage_gb.max, null)
-  #         min = try(var.settings.instance_requirements.total_local_storage_gb.min, null)
-  #       }
-  #     }
-
-  #     dynamic "memory_gib_per_vcpu" {
-  #       for_each = can(var.settings.instance_requirements.memory_gib_per_vcpu) ? [1] : []
-
-  #       content {
-  #         max = try(var.settings.instance_requirements.memory_gib_per_vcpu.max, null)
-  #         min = try(var.settings.instance_requirements.memory_gib_per_vcpu.min, null)
-  #       }
-  #     }
-
-  #     dynamic "network_bandwidth_gbps" {
-  #       for_each = can(var.settings.instance_requirements.network_bandwidth_gbps) ? [1] : []
-
-  #       content {
-  #         max = try(var.settings.instance_requirements.network_bandwidth_gbps.max, null)
-  #         min = try(var.settings.instance_requirements.network_bandwidth_gbps.min, null)
-  #       }
-  #     }
-
-  #     dynamic "network_interface_count" {
-  #       for_each = can(var.settings.instance_requirements.network_interface_count) ? [1] : []
-
-  #       content {
-  #         max = try(var.settings.instance_requirements.network_interface_count.max, null)
-  #         min = try(var.settings.instance_requirements.network_interface_count.min, null)
-  #       }
-  #     }
-
-  #     dynamic "baseline_ebs_bandwidth_mbps" {
-  #       for_each = can(var.settings.instance_requirements.baseline_ebs_bandwidth_mbps) ? [1] : []
-
-  #       content {
-  #         max = try(var.settings.instance_requirements.baseline_ebs_bandwidth_mbps.max, null)
-  #         min = try(var.settings.instance_requirements.baseline_ebs_bandwidth_mbps.min, null)
-  #       }
-  #     }
-
-  #     dynamic "accelerator_total_memory_mib" {
-  #       for_each = can(var.settings.instance_requirements.accelerator_total_memory_mib) ? [1] : []
-
-  #       content {
-  #         max = try(var.settings.instance_requirements.accelerator_total_memory_mib.max, null)
-  #         min = try(var.settings.instance_requirements.accelerator_total_memory_mib.min, null)
-  #       }
-  #     }
-
-  #     dynamic "accelerator_count" {
-  #       for_each = can(var.settings.instance_requirements.accelerator_count) ? [1] : []
-
-  #       content {
-  #         max = try(var.settings.instance_requirements.accelerator_count.max, null)
-  #         min = try(var.settings.instance_requirements.accelerator_count.min, null)
-  #       }
-  #     }
-
-  #   }
-  # }
-
-  # dynamic "block_device_mappings" {
-  #   for_each = try(var.settings.block_device_mappings, {})
-
-  #   content {
-  #     device_name  = block_device_mappings.value.device_name
-  #     no_device    = try(block_device_mappings.value.no_device, null)
-  #     virtual_name = try(block_device_mappings.value.virtual_name, null)
-
-  #     # TODO ebs can be a single block
-  #     dynamic "ebs" {
-  #       for_each = try(block_device_mappings.value.ebs, {})
-
-  #       content {
-  #         delete_on_termination      = try(ebs.value.delete_on_termination, null)
-  #         encrypted                  = try(ebs.value.encrypted, null)
-  #         iops                       = try(ebs.value.iops, null)
-  #         throughput                 = try(ebs.value.throughput, null)
-  #         volume_size                = try(ebs.value.volume_size, null)
-  #         volume_initialization_rate = try(ebs.value.volume_initialization_rate, null)
-  #         volume_type                = try(ebs.value.volume_type, null)
-  #         snapshot_id                = try(ebs.value.snapshot_id, null)
-  #         kms_key_id = try(
-  #           var.resources.kms_keys[ebs.value.kms_key_ref].arn,
-  #           try(ebs.value.kms_key_id, null)
-  #         )
-  #       }
-  #     }
-  #   }
-  # }
-
-  # dynamic "iam_instance_profile" {
-  #   for_each = can(var.settings.iam_instance_profile) ? [1] : []
-
-  #   content {
-  #     arn  = local.iam_instance_profile_arn
-  #     name = local.iam_instance_profile_name
-  #   }
-  # }
-
-  # dynamic "license_specification" {
-  #   for_each = try(var.settings.license_specification, {})
-
-  #   content {
-  #     license_configuration_arn = try(license_specification.value.license_configuration_arn, null)
-  #   }
-  # }
-
-  # dynamic "monitoring" {
-  #   for_each = can(var.settings.monitoring) ? [1] : []
-
-  #   content {
-  #     enabled = try(var.settings.monitoring.enabled, null)
-  #   }
-  # }
-
-  # dynamic "network_interfaces" {
-  #   for_each = try(var.settings.network_interfaces, {})
-
-  #   content {
-  #     associate_carrier_ip_address = try(network_interfaces.value.associate_carrier_ip_address, null)
-  #     associate_public_ip_address  = try(network_interfaces.value.associate_public_ip_address, null)
-  #     delete_on_termination        = try(network_interfaces.value.delete_on_termination, null)
-  #     description                  = try(network_interfaces.value.description, null)
-  #     device_index                 = try(network_interfaces.value.device_index, null)
-  #     interface_type               = try(network_interfaces.value.interface_type, null)
-  #     ipv4_prefix_count            = try(network_interfaces.value.ipv4_prefix_count, null)
-  #     ipv4_prefixes                = try(network_interfaces.value.ipv4_prefixes, null)
-  #     ipv6_addresses               = try(network_interfaces.value.ipv6_addresses, null)
-  #     ipv6_address_count           = try(network_interfaces.value.ipv6_address_count, null)
-  #     ipv6_prefix_count            = try(network_interfaces.value.ipv6_prefix_count, null)
-  #     ipv6_prefixes                = try(network_interfaces.value.ipv6_prefixes, null)
-  #     network_card_index           = try(network_interfaces.value.network_card_index, null)
-  #     primary_ipv6                 = try(network_interfaces.value.primary_ipv6, null)
-  #     ipv4_address_count           = try(network_interfaces.value.ipv4_address_count, null)
-  #     ipv4_addresses               = try(network_interfaces.value.ipv4_addresses, null)
-  #     private_ip_address           = try(network_interfaces.value.private_ip_address, null)
-
-  #     network_interface_id = try(
-  #       var.resources.network_interfaces[network_interfaces.value.network_interface_ref].id,
-  #       try(network_interfaces.value.network_interface_id, null)
-  #     )
-
-  #     subnet_id = (
-  #       network_interfaces.value.subnet_ref != null && network_interfaces.value.subnet_ref != "" ?
-  #       var.resources.vpcs[split("/", network_interfaces.value.subnet_ref)[0]].subnets[split("/", network_interfaces.value.subnet_ref)[1]].id :
-  #       (network_interfaces.value.subnet_id != null ? network_interfaces.value.subnet_id : null)
-  #     )
-
-  #     security_groups = (length(try(network_interfaces.value.security_group_refs, [])) > 0 ?
-  #       [for sg_ref in network_interfaces.value.security_group_refs : var.resources.security_groups[sg_ref].id] :
-  #       length(try(network_interfaces.value.security_group_ids, [])) > 0 ?
-  #       network_interfaces.value.security_group_ids :
-  #       null
-  #     )
-  #     # TODO: The whole block and it's dynamic cnotents can be a single or no block
-  #     dynamic "ena_srd_specification" {
-  #       for_each = try(network_interfaces.value.ena_srd_specification, {})
-
-  #       content {
-  #         ena_srd_enabled = try(ena_srd_specification.value.ena_srd_enabled, null)
-
-  #         dynamic "ena_srd_udp_specification" {
-  #           for_each = try(ena_srd_specification.value.ena_srd_udp_specification, {})
-
-  #           content {
-  #             ena_srd_udp_enabled = try(ena_srd_udp_specification.value.ena_srd_udp_enabled, null)
-  #           }
-
-  #         }
-  #       }
-  #     }
-  #     # TODO: The whole block and it's dynamic cnotents can be a single or no block
-  #     dynamic "connection_tracking_specification" {
-  #       for_each = try(network_interfaces.value.connection_tracking_specification, {})
-
-  #       content {
-  #         tcp_established_timeout = try(connection_tracking_specification.value.tcp_established_timeout, null)
-  #         udp_stream_timeout      = try(connection_tracking_specification.value.udp_stream_timeout, null)
-  #         udp_timeout             = try(connection_tracking_specification.value.udp_timeout, null)
-  #       }
-  #     }
-  #   }
-  # }
-
-  # dynamic "placement" {
-  #   for_each = can(var.settings.placement) ? [1] : []
-
-  #   content {
-  #     availability_zone       = try(var.settings.placement.availability_zone, null)
-  #     affinity                = try(var.settings.placement.affinity, null)
-  #     partition_number        = try(var.settings.placement.partition_number, null)
-  #     spread_domain           = try(var.settings.placement.spread_domain, null)
-  #     tenancy                 = try(var.settings.placement.tenancy, null)
-  #     group_name              = local.placement_group_name
-  #     group_id                = local.placement_group_id
-  #     host_id                 = local.placement_host
-  #     host_resource_group_arn = local.placement_host_rg
-  #   }
-  # }
-
-  # dynamic "private_dns_name_options" {
-  #   for_each = can(var.settings.private_dns_name_options) ? [1] : []
-
-  #   content {
-  #     enable_resource_name_dns_a_record    = try(var.settings.private_dns_name_options.enable_resource_name_dns_a_record, null)
-  #     enable_resource_name_dns_aaaa_record = try(var.settings.private_dns_name_options.enable_resource_name_dns_aaaa_record, null)
-  #     hostname_type                        = try(var.settings.private_dns_name_options.hostname_type, null)
-  #   }
-  # }
-
-  # dynamic "tag_specifications" {
-  #   for_each = try(var.settings.tag_specifications, {})
-
-  #   content {
-  #     resource_type = tag_specifications.value.resource_type
-  #     tags          = tag_specifications.value.tags
-  #   }
-  # }
+    content {
+      enable_resource_name_dns_a_record    = try(var.settings.private_dns_name_options.enable_resource_name_dns_a_record, null)
+      enable_resource_name_dns_aaaa_record = try(var.settings.private_dns_name_options.enable_resource_name_dns_aaaa_record, null)
+      hostname_type                        = try(var.settings.private_dns_name_options.hostname_type, null)
+    }
+  }
 }

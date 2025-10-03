@@ -23,12 +23,12 @@ locals {
     try(var.settings.key_name, null)
   )
 
-  # security_group_names = length(try(var.settings.security_group_names_ref, [])) > 0 ? [
-  #   for sg_ref in try(var.settings.security_group_names_ref, []) : try(
-  #     var.resources.security_groups[sg_ref].name,
-  #     null
-  #   )
-  # ] : try(var.settings.security_group_names, null)
+  security_groups = length(try(var.settings.security_groups_ref, [])) > 0 ? [
+    for sg_ref in try(var.settings.security_groups_ref, []) : try(
+      var.resources.security_groups[sg_ref].name,
+      null
+    )
+  ] : try(var.settings.security_groups, null)
 
   vpc_security_group_ids = length(try(var.settings.vpc_security_group_ids_ref, [])) > 0 ? [
     for sg_ref in try(var.settings.vpc_security_group_ids_ref, []) : try(
@@ -37,6 +37,15 @@ locals {
     )
   ] : try(var.settings.vpc_security_group_ids, null)
 
+  primary_network_interface_id = try(
+    var.resources.network_interfaces[var.settings.primary_network_interface_id_ref].id,
+    try(var.settings.primary_network_interface_id, null)
+  )
+
+  subnet_id = try(
+    var.resources.vpcs[split("/", var.settings.subnet_ref)[0]].subnets[split("/", var.settings.subnet_ref)[1]].id,
+    try(var.settings.subnet_id, null)
+  )
 
   # iam_instance_profile_arn = try(
   #   var.resources.iam_instance_profiles[var.settings.iam_instance_profile.arn_ref].arn,

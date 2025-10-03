@@ -14,9 +14,9 @@ module "instances" {
     iam_instance_profiles     = module.iam_instance_profiles
     launch_templates          = module.launch_templates
     placement_groups          = module.placement_groups
-    # security_groups           = module.security_groups
-    # network_interfaces        = module.network_interfaces
-    # vpcs = module.vpcs
+    security_groups           = module.security_groups
+    network_interfaces        = module.network_interfaces
+    vpcs                      = module.vpcs
   }
 
   # client_config = {
