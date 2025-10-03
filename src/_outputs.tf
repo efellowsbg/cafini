@@ -78,6 +78,6 @@ output "launch_templates" {
   value = module.launch_templates
 }
 
-output "instances" {
+output "ec2_instances" {
   value = module.instances
 }
