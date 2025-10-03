@@ -1,4 +1,4 @@
-module "internet_gateway" {
+module "internet_gateways" {
   source   = "./modules/_networking/internet_gateway"
   for_each = var.internet_gateways
 
