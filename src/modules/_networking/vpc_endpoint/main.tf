@@ -10,7 +10,7 @@ resource "aws_vpc_endpoint" "main" {
   private_dns_enabled        = try(var.settings.private_dns_enabled, null)
   ip_address_type            = try(var.settings.ip_address_type, null)
   route_table_ids            = try(var.settings.route_table_ids, null)
-  subnet_ids                 = local.subnet_ids
+  subnet_ids                 = try(local.subnet_ids, null)
   security_group_ids         = try(var.settings.security_group_ids, null)
   region                     = try(var.settings.region, null)
   tags                       = local.tags
