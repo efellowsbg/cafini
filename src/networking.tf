@@ -22,7 +22,11 @@ module "eips" {
   settings        = each.value
   global_settings = local.global_settings
 
-  resources = {}
+  resources = {
+    # instances          = module.instances
+    # network_interfaces = module.network_interfaces
+    # ipam_pools         = module.ipam_pools
+  }
 
   # client_config = {
   #   landingzone_key = var.landingzone.key
