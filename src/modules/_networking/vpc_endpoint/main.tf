@@ -34,5 +34,4 @@ resource "aws_vpc_endpoint" "main" {
       )
     }
   }
-  depends_on = [var.resources.route_tables]
 }
