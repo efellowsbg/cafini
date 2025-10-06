@@ -57,7 +57,6 @@ module "route_tables" {
     vpcs              = module.vpcs
     internet_gateways = module.internet_gateways
     nat_gateways      = module.nat_gateways
-    vpc_endpoints     = module.vpc_endpoints
   }
 
   # client_config = {
