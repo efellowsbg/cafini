@@ -1,7 +1,7 @@
 locals {
   route_table_id = try(
     var.resources.route_tables[var.settings.route_table_ref].id,
-    try(var.settings.route_table_id, null)
+    var.settings.route_table_id
   )
 
   subnet_id = try(

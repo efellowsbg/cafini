@@ -57,6 +57,14 @@ module "route_tables" {
     vpcs              = module.vpcs
     internet_gateways = module.internet_gateways
     nat_gateways      = module.nat_gateways
+
+    # Future modules (commented for now):
+    # carrier_gateways               = module.carrier_gateways
+    # networkmanager_core_networks   = module.networkmanager_core_networks
+    # egress_only_internet_gateways  = module.egress_only_internet_gateways
+    # local_gateways                 = module.local_gateways
+    # vpc_peering_connections        = module.vpc_peering_connections
+    # vpc_ipv6_cidr_block_associations = module.vpc_ipv6_cidr_block_associations
   }
 
   # client_config = {
