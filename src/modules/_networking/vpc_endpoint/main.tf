@@ -1,6 +1,5 @@
 resource "aws_vpc_endpoint" "main" {
-  # TODO: Doublecheck for missing arguments, reference to resources and dynamic blocks
-  vpc_id                     = var.settings.vpc_id
+  vpc_id                     = local.vpc_id
   vpc_endpoint_type          = try(var.settings.vpc_endpoint_type, null)
   service_name               = try(var.settings.service_name, null)
   service_region             = try(var.settings.service_region, null)
@@ -11,7 +10,7 @@ resource "aws_vpc_endpoint" "main" {
   private_dns_enabled        = try(var.settings.private_dns_enabled, null)
   ip_address_type            = try(var.settings.ip_address_type, null)
   route_table_ids            = try(var.settings.route_table_ids, null)
-  subnet_ids                 = try(var.settings.subnet_ids, null)
+  subnet_ids                 = local.subnet_ids
   security_group_ids         = try(var.settings.security_group_ids, null)
   region                     = try(var.settings.region, null)
   tags                       = local.tags
