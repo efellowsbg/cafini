@@ -13,10 +13,7 @@ locals {
     try(var.settings.nat_gateway_id, null)
   )
 
-  vpc_endpoint_id = try(
-    var.resources.vpc_endpoints[var.settings.vpc_endpoint_ref].id,
-    try(var.settings.vpc_endpoint_id, null)
-  )
+  vpc_endpoint_id = try(var.settings.vpc_endpoint_id, null)
 
   tags = merge(
     var.global_settings.tags,
