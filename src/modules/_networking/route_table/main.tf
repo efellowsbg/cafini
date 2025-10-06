@@ -19,7 +19,7 @@ resource "aws_route_table" "main" {
       nat_gateway_id             = try(local.nat_gateway_id, null)
       network_interface_id       = try(route.value.network_interface_id, null)
       transit_gateway_id         = try(route.value.transit_gateway_id, null)
-      vpc_endpoint_id            = try(local.vpc_endpoint_id, null)
+      vpc_endpoint_id            = try(route.vpc_endpoint_id, null)
       vpc_peering_connection_id  = try(route.value.vpc_peering_connection_id, null)
     }
   }
