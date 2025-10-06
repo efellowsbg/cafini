@@ -38,7 +38,7 @@ module "route_table_associations" {
 
   resources = {
     route_tables      = module.route_tables
-    subnets           = module.vpcs[*].subnets
+    vpcs              = module.vpcs
     internet_gateways = module.internet_gateways
   }
   # client_config = {
@@ -73,7 +73,6 @@ module "vpc_endpoints" {
 
   resources = {
     vpcs            = module.vpcs
-    subnets         = module.vpcs[each.value.vpc_ref].subnets
     security_groups = module.security_groups
     route_tables    = module.route_tables
   }
