@@ -1,6 +1,5 @@
 resource "aws_instance" "main" {
-  # TODO: Add ability to attach more than one nics
-  # TODO: Atatch primary nic on creation
+  # TODO: Create default modules for different types of ec2s
   # Region param suppose to fallback to the default region from the provider if not set
   instance_type                        = try(var.settings.launch_template, var.settings.instance_type)
   region                               = try(var.settings.region, null)
