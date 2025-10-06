@@ -6,7 +6,10 @@ module "autoscaling_groups" {
   global_settings = local.global_settings
 
   resources = {
-    # kms_keys = module.kms_keys
+    # availability_zones = module.availability_zones
+    # ec2_capacity_reservations = module.ec2_capacity_reservations
+    # launch_templates = module.launch_templates
+    # launch_configurations = module.launch_configurations
   }
 
   # client_config = {
