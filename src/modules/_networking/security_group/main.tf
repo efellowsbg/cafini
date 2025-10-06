@@ -7,14 +7,14 @@ resource "aws_security_group" "main" {
   region                 = try(var.settings.region, null)
   tags                   = local.tags
 
-  # 🔹 Ingress rules
+  # Ingress rules
   dynamic "ingress" {
-    for_each = try(var.settings.ingress, [])
+    for_each = try(var.settings.ingress, {})
     content {
       description      = try(ingress.value.description, null)
-      from_port        = try(ingress.value.from_port, null)
-      to_port          = try(ingress.value.to_port, null)
-      protocol         = try(ingress.value.protocol, null)
+      from_port        = ingress.value.from_port
+      to_port          = ingress.value.to_port
+      protocol         = ingress.value.protocol
       cidr_blocks      = try(ingress.value.cidr_blocks, null)
       ipv6_cidr_blocks = try(ingress.value.ipv6_cidr_blocks, null)
       security_groups  = try(ingress.value.security_groups, null)
@@ -22,14 +22,14 @@ resource "aws_security_group" "main" {
     }
   }
 
-  # 🔹 Egress rules
+  # Egress rules
   dynamic "egress" {
-    for_each = try(var.settings.egress, [])
+    for_each = try(var.settings.egress, {})
     content {
       description      = try(egress.value.description, null)
-      from_port        = try(egress.value.from_port, null)
-      to_port          = try(egress.value.to_port, null)
-      protocol         = try(egress.value.protocol, null)
+      from_port        = egress.value.from_port
+      to_port          = egress.value.to_port
+      protocol         = egress.value.protocol
       cidr_blocks      = try(egress.value.cidr_blocks, null)
       ipv6_cidr_blocks = try(egress.value.ipv6_cidr_blocks, null)
       security_groups  = try(egress.value.security_groups, null)
