@@ -73,3 +73,11 @@ output "kms_keys" {
 output "db_subnet_groups" {
   value = module.db_subnet_groups
 }
+
+output "launch_templates" {
+  value = module.launch_templates
+}
+
+output "ec2_instances" {
+  value = module.ec2_instances
+}
