@@ -63,7 +63,10 @@ module "vpc_endpoints" {
   settings        = each.value
   global_settings = local.global_settings
 
-  resources = {}
+  resources = {
+    vpcs    = module.vpcs
+    subnets = module.vpcs[each.value.vpc_ref].subnets
+  }
 
   # client_config = {
   #   landingzone_key = var.landingzone.key
