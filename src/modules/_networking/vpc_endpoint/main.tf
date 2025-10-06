@@ -9,26 +9,26 @@ resource "aws_vpc_endpoint" "main" {
   policy                     = try(var.settings.policy, null)
   private_dns_enabled        = try(var.settings.private_dns_enabled, null)
   ip_address_type            = try(var.settings.ip_address_type, null)
-  route_table_ids            = try(var.settings.route_table_ids, null)
+  route_table_ids            = try(local.route_table_ids, null)
   subnet_ids                 = try(local.subnet_ids, null)
-  security_group_ids         = try(var.settings.security_group_ids, null)
+  security_group_ids         = try(local.security_group_ids, null)
   region                     = try(var.settings.region, null)
   tags                       = local.tags
 
   dynamic "dns_options" {
-    for_each = try(var.settings.dns_options, {}) != {} ? [var.settings.dns_options] : []
+    for_each = can(var.settings.dns_options) ? [1] : []
     content {
-      dns_record_ip_type                             = try(dns_options.value.dns_record_ip_type, null)
-      private_dns_only_for_inbound_resolver_endpoint = try(dns_options.value.private_dns_only_for_inbound_resolver_endpoint, null)
+      dns_record_ip_type                             = try(var.settings.dns_options.dns_record_ip_type, null)
+      private_dns_only_for_inbound_resolver_endpoint = try(var.settings.dns_options.private_dns_only_for_inbound_resolver_endpoint, null)
     }
   }
 
   dynamic "subnet_configuration" {
-    for_each = try(var.settings.subnet_configuration, [])
+    for_each = try(var.settings.subnet_configuration, {}) != {} ? [var.settings.subnet_configuration] : []
     content {
       ipv4      = try(subnet_configuration.value.ipv4, null)
       ipv6      = try(subnet_configuration.value.ipv6, null)
-      subnet_id = subnet_configuration.value.subnet_id
+      subnet_id = try(subnet_configuration.value.subnet_id, null)
     }
   }
 }
