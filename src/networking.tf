@@ -36,7 +36,11 @@ module "route_table_associations" {
   settings        = each.value
   global_settings = local.global_settings
 
-  resources = {}
+  resources = {
+    route_tables      = module.route_tables
+    subnets           = module.vpcs[*].subnets
+    internet_gateways = module.internet_gateways
+  }
   # client_config = {
   #   landingzone_key = var.landingzone.key
   # }
@@ -49,7 +53,12 @@ module "route_tables" {
   settings        = each.value
   global_settings = local.global_settings
 
-  resources = {}
+  resources = {
+    vpcs              = module.vpcs
+    internet_gateways = module.internet_gateways
+    nat_gateways      = module.nat_gateways
+    vpc_endpoints     = module.vpc_endpoints
+  }
 
   # client_config = {
   #   landingzone_key = var.landingzone.key
