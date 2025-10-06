@@ -64,8 +64,10 @@ module "vpc_endpoints" {
   global_settings = local.global_settings
 
   resources = {
-    vpcs    = module.vpcs
-    subnets = module.vpcs[each.value.vpc_ref].subnets
+    vpcs            = module.vpcs
+    subnets         = module.vpcs[each.value.vpc_ref].subnets
+    security_groups = module.security_groups
+    route_tables    = module.route_tables
   }
 
   # client_config = {

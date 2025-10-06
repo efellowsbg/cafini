@@ -24,11 +24,14 @@ resource "aws_vpc_endpoint" "main" {
   }
 
   dynamic "subnet_configuration" {
-    for_each = try(var.settings.subnet_configuration, {}) != {} ? [var.settings.subnet_configuration] : []
+    for_each = try(var.settings.subnet_configuration, {})
     content {
-      ipv4      = try(subnet_configuration.value.ipv4, null)
-      ipv6      = try(subnet_configuration.value.ipv6, null)
-      subnet_id = try(subnet_configuration.value.subnet_id, null)
+      ipv4 = try(subnet_configuration.value.ipv4, null)
+      ipv6 = try(subnet_configuration.value.ipv6, null)
+      subnet_id = try(
+        var.resources.vpcs[split("/", subnet_configuration.value.subnet_ref)[0]].subnets[split("/", subnet_configuration.value.subnet_ref)[1]].id,
+        try(subnet_configuration.value.subnet_id, null)
+      )
     }
   }
 }
