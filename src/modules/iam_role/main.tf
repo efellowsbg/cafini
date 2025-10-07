@@ -1,3 +1,16 @@
+data "aws_iam_policy_document" "assume_role" {
+  count = can(var.settings.assume_role_policy) ? 0 : 1
+
+  statement {
+    effect = "Allow"
+    principals {
+      type        = "Service"
+      identifiers = try(var.settings.assume_principals, ["ec2.amazonaws.com"])
+    }
+    actions = ["sts:AssumeRole"]
+  }
+}
+
 resource "aws_iam_role" "main" {
   assume_role_policy    = local.assume_role_policy
   description           = try(var.settings.description, null)

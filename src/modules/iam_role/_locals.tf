@@ -1,7 +1,7 @@
 locals {
   assume_role_policy = try(
-    var.resources.iam_policies[var.settings.assume_role_policy_ref].json,
-    try(var.settings.assume_role_policy, null)
+    var.settings.assume_role_policy,
+    data.aws_iam_policy_document.assume_role.json
   )
   permissions_boundary = try(
     var.resources.iam_policies[var.settings.permissions_boundary_ref].arn,
