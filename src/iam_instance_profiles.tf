@@ -5,5 +5,7 @@ module "iam_instance_profiles" {
   settings        = each.value
   global_settings = local.global_settings
 
-  resources = {}
+  resources = {
+    iam_roles = module.iam_roles
+  }
 }
