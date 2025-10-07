@@ -1,7 +1,7 @@
 resource "aws_kms_key" "main" {
   description                        = try(var.settings.description, null)
   key_usage                          = try(var.settings.key_usage, "ENCRYPT_DECRYPT")
-  custom_key_store_id                = try(var.settings.custom_key_store_id, null)
+  custom_key_store_id                = try(local.custom_key_store_id, null)
   customer_master_key_spec           = try(var.settings.customer_master_key_spec, "SYMMETRIC_DEFAULT")
   policy                             = try(local.policy, null)
   bypass_policy_lockout_safety_check = try(var.settings.bypass_policy_lockout_safety_check, false)
