@@ -5,5 +5,7 @@ module "kms_keys" {
   settings        = each.value
   global_settings = local.global_settings
 
-  resources = {}
+  resources = {
+    iam_policies = module.iam_policies
+  }
 }
