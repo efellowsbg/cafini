@@ -1,5 +1,5 @@
 module "iam_policy_attachments" {
-  source   = "./modules/_security/iam_policy_attachment"
+  source   = "./modules/iam_policy_attachment"
   for_each = var.iam_policy_attachments
 
   settings        = each.value
