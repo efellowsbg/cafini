@@ -9,6 +9,6 @@ module "iam_policy_attachments" {
     iam_policies = module.iam_policies
     iam_roles    = module.iam_roles
     iam_users    = module.iam_users
-    #iam_groups   = module.iam_groups
+    iam_groups   = module.iam_groups
   }
 }
