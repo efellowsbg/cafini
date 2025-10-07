@@ -6,7 +6,8 @@ module "iam_roles" {
   global_settings = local.global_settings
 
   resources = {
-    iam_policies = module.iam_policies
+    iam_policies           = module.iam_policies
+    iam_policy_attachments = module.iam_policy_attachments
   }
 
   # client_config = {
