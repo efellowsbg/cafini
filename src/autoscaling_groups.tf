@@ -8,7 +8,7 @@ module "autoscaling_groups" {
   resources = {
     # availability_zones = module.availability_zones
     # ec2_capacity_reservations = module.ec2_capacity_reservations
-    # launch_templates = module.launch_templates
+    launch_templates = module.launch_templates
     # launch_configurations = module.launch_configurations
   }
 
