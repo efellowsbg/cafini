@@ -1,10 +1,9 @@
 resource "aws_kms_key" "main" {
-  # TODO: Add doublecheck for missing arguments, reference to resources and dynamic blocks
   description                        = try(var.settings.description, null)
   key_usage                          = try(var.settings.key_usage, "ENCRYPT_DECRYPT")
-  custom_key_store_id                = try(var.settings.custom_key_store_id, null)
+  custom_key_store_id                = try(local.custom_key_store_id, null)
   customer_master_key_spec           = try(var.settings.customer_master_key_spec, "SYMMETRIC_DEFAULT")
-  policy                             = try(var.settings.policy, null)
+  policy                             = try(local.policy, null)
   bypass_policy_lockout_safety_check = try(var.settings.bypass_policy_lockout_safety_check, false)
   deletion_window_in_days            = try(var.settings.deletion_window_in_days, 30)
   is_enabled                         = try(var.settings.is_enabled, true)
