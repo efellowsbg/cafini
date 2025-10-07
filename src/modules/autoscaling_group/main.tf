@@ -4,12 +4,12 @@ resource "aws_autoscaling_group" "main" {
   region                           = try(var.settings.region, null)
   name                             = try(var.settings.name, null)
   name_prefix                      = try(var.settings.name_prefix, null)
-  availability_zones               = local.availability_zones
   capacity_rebalance               = try(var.settings.capacity_rebalance, null)
   context                          = try(var.settings.context, null)
   default_cooldown                 = try(var.settings.default_cooldown, null)
   default_instance_warmup          = try(var.settings.default_instance_warmup, null)
   ignore_failed_scaling_activities = try(var.settings.ignore_failed_scaling_activities, null)
+  availability_zones               = local.availability_zones
   launch_configuration             = local.launch_configuration
 
 
@@ -44,7 +44,7 @@ resource "aws_autoscaling_group" "main" {
     content {
       id      = local.launch_template_id
       name    = local.launch_template_name
-      version = try(var.settings.launch_template.version, null)
+      version = try(var.settings.launch_template.version, "$Latest")
     }
   }
 
