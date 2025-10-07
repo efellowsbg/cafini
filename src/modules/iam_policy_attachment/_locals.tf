@@ -1,7 +1,7 @@
 locals {
   policy_arn = try(
     var.resources.iam_policies[var.settings.policy_ref].arn,
-    try(var.settings.policy_arn, null)
+    var.settings.policy_arn
   )
   users = try(
     [for user_ref in try(var.settings.user_refs, []) :
