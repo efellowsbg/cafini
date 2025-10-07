@@ -11,4 +11,5 @@ module "iam_policy_attachments" {
     iam_users    = module.iam_users
     iam_groups   = module.iam_groups
   }
+  depends_on = [module.iam_roles]
 }
