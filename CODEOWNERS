@@ -1,9 +1,13 @@
+# CODEOWNERS
+# Define code ownership and review responsibilities
+
 # self-protection
 CODEOWNERS @efellowsbg/CAFini
 
-# pipelines
-.github @efellowsbg/CAFini
-.vscode @efellowsbg/CAFini
+# CI/CD & configuration
+.github/ @efellowsbg/CAFini
+.vscode/ @efellowsbg/CAFini
+.pre-commit-config.yaml @efellowsbg/CAFini
 
-# source code
-src @efellowsbg/CAFini
+# general source code (default)
+src/ @efellowsbg/CAFini
