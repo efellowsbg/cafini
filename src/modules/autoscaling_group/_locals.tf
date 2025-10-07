@@ -1,7 +1,7 @@
 locals {
   availability_zones = length(try(var.settings.availability_zones_ref, [])) > 0 ? [
     for az_ref in try(var.settings.availability_zones_ref, []) : try(
-      var.resources.availability_zones[sg_ref].id,
+      var.resources.availability_zones[az_ref].id,
       null
     )
   ] : try(var.settings.availability_zones, null)
