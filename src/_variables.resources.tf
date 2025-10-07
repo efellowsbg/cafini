@@ -37,3 +37,4 @@ variable "launch_templates" { default = {} }
 variable "ec2_instances" { default = {} }
 
 variable "iam_policy_attachments" { default = {} }
+variable "autoscaling_groups" { default = {} }
