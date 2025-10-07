@@ -35,3 +35,5 @@ variable "db_subnet_groups" { default = {} }
 variable "launch_templates" { default = {} }
 
 variable "ec2_instances" { default = {} }
+
+variable "iam_policy_attachments" { default = {} }
