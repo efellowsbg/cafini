@@ -3,6 +3,10 @@ locals {
     var.resources.kms_custom_key_stores[var.settings.custom_key_store_ref].id,
     try(var.settings.custom_key_store_id, null)
   )
+  xks_key_id = try(
+    var.resources.kms_external_key_stores[var.settings.xks_key_ref].key_id,
+    try(var.settings.xks_key_id, null)
+  )
   policy = try(
     var.resources.iam_policies[var.settings.policy_ref].json,
     try(var.settings.policy, null)

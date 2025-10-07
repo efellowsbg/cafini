@@ -10,7 +10,7 @@ resource "aws_kms_key" "main" {
   enable_key_rotation                = try(var.settings.enable_key_rotation, false)
   rotation_period_in_days            = try(var.settings.rotation_period_in_days, null)
   multi_region                       = try(var.settings.multi_region, false)
-  xks_key_id                         = try(var.settings.xks_key_id, null)
+  xks_key_id                         = try(local.xks_key_id, null)
   region                             = try(var.settings.region, null)
   tags                               = local.tags
 }

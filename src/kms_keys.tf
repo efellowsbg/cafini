@@ -6,7 +6,7 @@ module "kms_keys" {
   global_settings = local.global_settings
 
   resources = {
-    iam_policies          = module.iam_policies
-    kms_custom_key_stores = module.kms_custom_key_stores
+    iam_policies = module.iam_policies
+    #kms_custom_key_stores = module.kms_custom_key_stores
   }
 }
