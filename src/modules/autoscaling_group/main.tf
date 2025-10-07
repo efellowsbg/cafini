@@ -84,9 +84,15 @@ resource "aws_autoscaling_group" "main" {
               for_each = can(override.value.instance_requirements) ? [1] : []
 
               content {
+
                 vcpu_count {
                   min = override.value.instance_requirements.vcpu_count.min
                   max = try(override.value.instance_requirements.vcpu_count.max, null)
+                }
+
+                memory_mib {
+                  min = override.value.instance_requirements.memory_mib.min
+                  max = try(override.value.instance_requirements.memory_mib.max, null)
                 }
 
                 accelerator_manufacturers                               = try(override.value.instance_requirements.accelerator_manufacturers, null)
@@ -105,7 +111,7 @@ resource "aws_autoscaling_group" "main" {
                 on_demand_max_price_percentage_over_lowest_price        = try(override.value.instance_requirements.on_demand_max_price_percentage_over_lowest_price, null)
                 require_hibernate_support                               = try(override.value.instance_requirements.require_hibernate_support, null)
 
-                dynamic "accelarator_count" {
+                dynamic "accelerator_count" {
                   for_each = can(override.value.instance_requirements.accelerator_count) ? [1] : []
 
                   content {
@@ -114,7 +120,7 @@ resource "aws_autoscaling_group" "main" {
                   }
                 }
 
-                dynamic "accelarator_total_memory_mib" {
+                dynamic "accelerator_total_memory_mib" {
                   for_each = can(override.value.instance_requirements.accelerator_total_memory_mib) ? [1] : []
 
                   content {
@@ -129,15 +135,6 @@ resource "aws_autoscaling_group" "main" {
                   content {
                     max = try(override.value.instance_requirements.baseline_ebs_bandwidth_mbps.max, null)
                     min = try(override.value.instance_requirements.baseline_ebs_bandwidth_mbps.min, null)
-                  }
-                }
-
-                dynamic "memory_mib" {
-                  for_each = can(override.value.instance_requirements.memory_mib) ? [1] : []
-
-                  content {
-                    max = try(override.value.instance_requirements.memory_mib.max, null)
-                    min = try(override.value.instance_requirements.memory_mib.min, null)
                   }
                 }
 
