@@ -81,3 +81,7 @@ output "launch_templates" {
 output "ec2_instances" {
   value = module.ec2_instances
 }
+
+output "aws_autoscaling_groups" {
+  value = module.autoscaling_groups
+}
