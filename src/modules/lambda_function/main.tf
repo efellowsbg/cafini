@@ -101,9 +101,5 @@ resource "aws_lambda_function" "main" {
       mode = try(var.settings.tracing_config.mode, "PassThrough")
     }
   }
-
-  depends_on = [
-    var.resources.iam_roles
-  ]
   tags = local.tags
 }

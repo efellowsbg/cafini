@@ -13,4 +13,6 @@ module "lambda_functions" {
     kms_keys = module.kms_keys
   }
 
+  depends_on = [module.iam_roles]
+
 }
