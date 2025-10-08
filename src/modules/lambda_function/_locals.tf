@@ -1,7 +1,7 @@
 locals {
   role_arn = try(
-    var.resources.iam_roles[var.settings.role_ref].arn,
-    try(var.settings.role_arn, null)
+    var.resources.iam_roles[try(var.settings.role_ref, null)].arn,
+    var.settings.role_arn
   )
 
   s3_bucket = try(
