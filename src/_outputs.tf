@@ -93,3 +93,7 @@ output "lambda_functions" {
 output "s3_buckets" {
   value = module.s3_bucket
 }
+
+output "s3_bucket_lifecycle_configurations" {
+  value = module.s3_bucket_lifecycle_configurations
+}
