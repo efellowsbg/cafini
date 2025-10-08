@@ -17,7 +17,7 @@ resource "aws_lambda_function" "main" {
   description                    = try(var.settings.description, null)
   memory_size                    = try(var.settings.memory_size, 128)
   timeout                        = try(var.settings.timeout, 3)
-  architectures                  = try(var.settings.architectures, [null])
+  architectures                  = try(var.settings.architectures, null)
   reserved_concurrent_executions = try(var.settings.reserved_concurrent_executions, -1)
   publish                        = try(var.settings.publish, false)
 
