@@ -1,3 +1,3 @@
 output "id" {
-  value = aws_s3_bucket_lifecycle_configuration.main.id
+  value = aws_s3_bucket_lifecycle_configuration.main.bucket
 }
