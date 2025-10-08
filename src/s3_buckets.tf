@@ -1,4 +1,4 @@
-module "s3_bucket" {
+module "s3_buckets" {
   source   = "./modules/s3_bucket"
   for_each = var.s3_buckets
 
