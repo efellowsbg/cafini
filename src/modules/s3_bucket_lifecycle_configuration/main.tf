@@ -82,6 +82,4 @@ resource "aws_s3_bucket_lifecycle_configuration" "main" {
 
   transition_default_minimum_object_size = try(var.settings.transition_default_minimum_object_size, "all_storage_classes_128K")
   expected_bucket_owner                  = try(var.settings.expected_bucket_owner, null)
-
-  depends_on = [var.resources.s3_buckets]
 }
