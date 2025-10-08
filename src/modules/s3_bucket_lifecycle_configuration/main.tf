@@ -2,7 +2,7 @@ resource "aws_s3_bucket_lifecycle_configuration" "main" {
   bucket = local.bucket_name
 
   dynamic "rule" {
-    for_each = try(var.settings.rules, {})
+    for_each = try(var.settings.rules, [])
     content {
       id     = try(rule.value.id, null)
       status = try(rule.value.status, "Enabled")
