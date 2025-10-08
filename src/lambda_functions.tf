@@ -6,7 +6,7 @@ module "lambda_functions" {
   global_settings = local.global_settings
 
   resources = {
-    iam_roles             = module.iam_roles
+    iam_roles             = try(module.iam_roles, null)
     cloudwatch_log_groups = module.cloudwatch_log_groups
     # s3_buckets           = module.s3_buckets
     # efs_access_points     = module.efs_access_points
