@@ -41,3 +41,5 @@ variable "iam_policy_attachments" { default = {} }
 variable "autoscaling_groups" { default = {} }
 
 variable "lambda_functions" { default = {} }
+
+variable "s3_buckets" { default = {} }

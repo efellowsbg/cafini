@@ -85,3 +85,11 @@ output "ec2_instances" {
 output "aws_autoscaling_groups" {
   value = module.autoscaling_groups
 }
+
+output "lambda_functions" {
+  value = module.lambda_functions
+}
+
+output "s3_buckets" {
+  value = module.s3_bucket
+}
