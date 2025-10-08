@@ -1,8 +1,8 @@
 resource "aws_lambda_function" "main" {
   function_name = var.settings.function_name
   role          = local.role_arn
-  handler       = try(var.settings.handler, "index.handler")
-  runtime       = try(var.settings.runtime, "python3.13")
+  handler       = try(var.settings.handler, null)
+  runtime       = try(var.settings.runtime, null)
 
   filename          = try(var.settings.filename, null)
   s3_bucket         = try(local.s3_bucket, null)
@@ -12,12 +12,12 @@ resource "aws_lambda_function" "main" {
 
   source_code_hash        = try(var.settings.source_code_hash, null)
   code_signing_config_arn = try(var.settings.code_signing_config_arn, null)
-  package_type            = try(var.settings.package_type, "Zip")
+  package_type            = try(var.settings.package_type, null)
 
   description                    = try(var.settings.description, null)
   memory_size                    = try(var.settings.memory_size, 128)
   timeout                        = try(var.settings.timeout, 3)
-  architectures                  = try(var.settings.architectures, ["x86_64"])
+  architectures                  = try(var.settings.architectures, [null])
   reserved_concurrent_executions = try(var.settings.reserved_concurrent_executions, -1)
   publish                        = try(var.settings.publish, false)
 
@@ -35,7 +35,7 @@ resource "aws_lambda_function" "main" {
     ) ? [1] : []
     content {
       arn              = try(local.file_system_arn, var.settings.file_system_config.arn)
-      local_mount_path = try(var.settings.file_system_config.local_mount_path, "/mnt/data")
+      local_mount_path = var.settings.file_system_config.local_mount_path
     }
   }
 
@@ -45,12 +45,12 @@ resource "aws_lambda_function" "main" {
       subnet_ids = (
         length(try(local.subnet_ids, [])) > 0 ?
         local.subnet_ids :
-        try(var.settings.vpc_config.subnet_ids, [])
+        try(var.settings.vpc_config.subnet_ids, null)
       )
       security_group_ids = (
         length(try(local.security_group_ids, [])) > 0 ?
         local.security_group_ids :
-        try(var.settings.vpc_config.security_group_ids, [])
+        try(var.settings.vpc_config.security_group_ids, null)
       )
       ipv6_allowed_for_dual_stack = try(var.settings.vpc_config.ipv6_allowed_for_dual_stack, false)
     }
