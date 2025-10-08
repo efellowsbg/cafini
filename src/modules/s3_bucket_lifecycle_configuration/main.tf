@@ -4,80 +4,79 @@ resource "aws_s3_bucket_lifecycle_configuration" "main" {
   dynamic "rule" {
     for_each = try(var.settings.rules, [])
     content {
-      id     = try(rule.value.id, null)
-      status = try(rule.value.status, null)
+      id     = try(each.value.id, null)
+      status = try(each.value.status, "Enabled")
 
       dynamic "filter" {
-        for_each = try(rule.value.filter, null) != null ? [rule.value.filter] : []
+        for_each = try({ "config" = each.value.filter }, {})
         content {
-          prefix                   = try(filter.value.prefix, null)
-          object_size_greater_than = try(filter.value.object_size_greater_than, null)
-          object_size_less_than    = try(filter.value.object_size_less_than, null)
+          prefix                   = try(each.value.prefix, null)
+          object_size_greater_than = try(each.value.object_size_greater_than, null)
+          object_size_less_than    = try(each.value.object_size_less_than, null)
 
           dynamic "tag" {
-            for_each = try(filter.value.tag, null) != null ? [filter.value.tag] : []
+            for_each = try({ "config" = each.value.tag }, {})
             content {
-              key   = try(tag.value.key, null)
-              value = try(tag.value.value, null)
+              key   = try(each.value.key, null)
+              value = try(each.value.value, null)
             }
           }
 
           dynamic "and" {
-            for_each = try(filter.value.and, null) != null ? [filter.value.and] : []
+            for_each = try({ "config" = each.value.and }, {})
             content {
-              prefix                   = try(and.value.prefix, null)
-              object_size_greater_than = try(and.value.object_size_greater_than, null)
-              object_size_less_than    = try(and.value.object_size_less_than, null)
-              tags                     = try(and.value.tags, null)
+              prefix                   = try(each.value.prefix, null)
+              object_size_greater_than = try(each.value.object_size_greater_than, null)
+              object_size_less_than    = try(each.value.object_size_less_than, null)
+              tags                     = try(each.value.tags, null)
             }
           }
         }
       }
 
       dynamic "expiration" {
-        for_each = try(rule.value.expiration, null) != null ? [rule.value.expiration] : []
+        for_each = try({ "config" = each.value.expiration }, {})
         content {
-          date                         = try(expiration.value.date, null)
-          days                         = try(expiration.value.days, null)
-          expired_object_delete_marker = try(expiration.value.expired_object_delete_marker, null)
+          date                         = try(each.value.date, null)
+          days                         = try(each.value.days, null)
+          expired_object_delete_marker = try(each.value.expired_object_delete_marker, null)
         }
       }
 
       dynamic "abort_incomplete_multipart_upload" {
-        for_each = try(rule.value.abort_incomplete_multipart_upload, null) != null ? [rule.value.abort_incomplete_multipart_upload] : []
+        for_each = try({ "config" = each.value.abort_incomplete_multipart_upload }, {})
         content {
-          days_after_initiation = try(abort_incomplete_multipart_upload.value.days_after_initiation, null)
+          days_after_initiation = try(each.value.days_after_initiation, null)
         }
       }
 
       dynamic "transition" {
-        for_each = try(rule.value.transition, [])
+        for_each = try({ "config" = each.value.transition }, {})
         content {
-          date          = try(transition.value.date, null)
-          days          = try(transition.value.days, null)
-          storage_class = try(transition.value.storage_class, null)
+          date          = try(each.value.date, null)
+          days          = try(each.value.days, null)
+          storage_class = try(each.value.storage_class, null)
         }
       }
 
       dynamic "noncurrent_version_transition" {
-        for_each = try(rule.value.noncurrent_version_transition, [])
+        for_each = try({ "config" = each.value.noncurrent_version_transition }, {})
         content {
-          noncurrent_days           = try(noncurrent_version_transition.value.noncurrent_days, null)
-          newer_noncurrent_versions = try(noncurrent_version_transition.value.newer_noncurrent_versions, null)
-          storage_class             = try(noncurrent_version_transition.value.storage_class, null)
+          noncurrent_days           = try(each.value.noncurrent_days, null)
+          newer_noncurrent_versions = try(each.value.newer_noncurrent_versions, null)
+          storage_class             = try(each.value.storage_class, null)
         }
       }
 
       dynamic "noncurrent_version_expiration" {
-        for_each = try(rule.value.noncurrent_version_expiration, null) != null ? [rule.value.noncurrent_version_expiration] : []
+        for_each = try({ "config" = each.value.noncurrent_version_expiration }, {})
         content {
-          noncurrent_days           = try(noncurrent_version_expiration.value.noncurrent_days, null)
-          newer_noncurrent_versions = try(noncurrent_version_expiration.value.newer_noncurrent_versions, null)
+          noncurrent_days           = try(each.value.noncurrent_days, null)
+          newer_noncurrent_versions = try(each.value.newer_noncurrent_versions, null)
         }
       }
     }
   }
-
   transition_default_minimum_object_size = try(var.settings.transition_default_minimum_object_size, null)
   expected_bucket_owner                  = try(var.settings.expected_bucket_owner, null)
 }
