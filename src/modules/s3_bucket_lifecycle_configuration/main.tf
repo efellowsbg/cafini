@@ -14,7 +14,6 @@ resource "aws_s3_bucket_lifecycle_configuration" "main" {
           object_size_greater_than = try(filter.value.object_size_greater_than, null)
           object_size_less_than    = try(filter.value.object_size_less_than, null)
 
-          # Single tag
           dynamic "tag" {
             for_each = try(filter.value.tag, null) != null ? [filter.value.tag] : []
             content {
@@ -23,7 +22,6 @@ resource "aws_s3_bucket_lifecycle_configuration" "main" {
             }
           }
 
-          # "and" block (prefix, tags, object sizes)
           dynamic "and" {
             for_each = try(filter.value.and, null) != null ? [filter.value.and] : []
             content {
