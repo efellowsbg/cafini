@@ -8,8 +8,8 @@ module "lambda_functions" {
   resources = {
     iam_roles             = try(module.iam_roles, {})
     cloudwatch_log_groups = try(module.cloudwatch_log_groups, {})
-    efs_access_points     = try(module.efs_access_points, {})
-    kms_keys              = try(module.kms_keys, {})
+    # efs_access_points     = try(module.efs_access_points, {})
+    kms_keys = try(module.kms_keys, {})
   }
 
 }
