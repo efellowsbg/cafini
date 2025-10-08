@@ -5,7 +5,7 @@ resource "aws_s3_bucket_lifecycle_configuration" "main" {
     for_each = try(var.settings.rules, [])
     content {
       id     = try(rule.value.id, null)
-      status = try(rule.value.status, "Enabled")
+      status = try(rule.value.status, null)
 
       dynamic "filter" {
         for_each = try(rule.value.filter, null) != null ? [rule.value.filter] : []
@@ -80,6 +80,6 @@ resource "aws_s3_bucket_lifecycle_configuration" "main" {
     }
   }
 
-  transition_default_minimum_object_size = try(var.settings.transition_default_minimum_object_size, "all_storage_classes_128K")
+  transition_default_minimum_object_size = try(var.settings.transition_default_minimum_object_size, null)
   expected_bucket_owner                  = try(var.settings.expected_bucket_owner, null)
 }
