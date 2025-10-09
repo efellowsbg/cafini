@@ -43,3 +43,5 @@ variable "autoscaling_groups" { default = {} }
 variable "lambda_functions" { default = {} }
 
 variable "s3_buckets" { default = {} }
+
+variable "s3_bucket_lifecycle_configurations" { default = {} }
