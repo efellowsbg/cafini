@@ -2,10 +2,10 @@ resource "aws_s3_bucket_lifecycle_configuration" "main" {
   bucket = local.bucket_name
 
   dynamic "rule" {
-    for_each = try(var.settings.rules, [])
+    for_each = try(var.settings.rules, {})
     content {
-      id     = try(rule.value.id, null)
-      status = try(rule.value.status, "Enabled")
+      id     = rule.value.id
+      status = rule.value.status
 
       dynamic "filter" {
         for_each = try(rule.value.filter, {})
@@ -51,7 +51,7 @@ resource "aws_s3_bucket_lifecycle_configuration" "main" {
       }
 
       dynamic "transition" {
-        for_each = try(rule.value.transition, [])
+        for_each = try(rule.value.transition, {})
         content {
           date          = try(transition.value.date, null)
           days          = try(transition.value.days, null)
@@ -62,16 +62,16 @@ resource "aws_s3_bucket_lifecycle_configuration" "main" {
       dynamic "noncurrent_version_transition" {
         for_each = try(rule.value.noncurrent_version_transition, {})
         content {
-          noncurrent_days           = try(noncurrent_version_transition.value.noncurrent_days, null)
+          noncurrent_days           = noncurrent_version_transition.value.noncurrent_days
           newer_noncurrent_versions = try(noncurrent_version_transition.value.newer_noncurrent_versions, null)
-          storage_class             = try(noncurrent_version_transition.value.storage_class, null)
+          storage_class             = noncurrent_version_transition.value.storage_class
         }
       }
 
       dynamic "noncurrent_version_expiration" {
         for_each = try(rule.value.noncurrent_version_expiration, {})
         content {
-          noncurrent_days           = try(noncurrent_version_expiration.value.noncurrent_days, null)
+          noncurrent_days           = noncurrent_version_expiration.value.noncurrent_days
           newer_noncurrent_versions = try(noncurrent_version_expiration.value.newer_noncurrent_versions, null)
         }
       }
