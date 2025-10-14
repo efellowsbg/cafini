@@ -5,21 +5,18 @@ locals {
   )
 
   role_arn = try(
-    var.resources.iam_roles[var.settings.role_ref].arn,
-    try(var.settings.role_arn, null)
+    var.resources.iam_roles[var.settings.role_ref].arn, var.settings.role_arn
   )
 
   subnet_ids = try(
     [for ref in var.settings.subnet_refs :
       var.resources.vpcs[split("/", ref)[0]].subnets[split("/", ref)[1]].id
-    ],
-    try(var.settings.subnet_ids, null)
+    ], var.settings.subnet_ids
   )
 
   security_group_ids = try(
     [for ref in try(var.settings.security_group_refs, []) :
       var.resources.security_groups[ref].id
-    ],
-    try(var.settings.security_group_ids, null)
+    ], var.settings.security_group_ids
   )
 }
