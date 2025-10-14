@@ -63,6 +63,6 @@ resource "aws_eks_node_group" "main" {
   }
 
   lifecycle {
-    ignore_changes = try(var.settings.ignore_changes, [])
+    ignore_changes = []
   }
 }
