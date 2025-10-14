@@ -41,6 +41,4 @@ resource "aws_eks_cluster" "main" {
 
   region = try(var.settings.region, null)
   tags   = local.tags
-
-  depends_on = try(var.settings.depends_on, [])
 }
