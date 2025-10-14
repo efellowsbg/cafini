@@ -34,11 +34,7 @@ resource "aws_eks_cluster" "main" {
     }
   }
 
-  dynamic "enabled_cluster_log_types" {
-    for_each = can(var.settings.enabled_cluster_log_types) ? [1] : []
-    content {}
-  }
-
-  region = try(var.settings.region, null)
-  tags   = local.tags
+  enabled_cluster_log_types = try(var.settings.enabled_cluster_log_types, null)
+  region                    = try(var.settings.region, null)
+  tags                      = local.tags
 }
