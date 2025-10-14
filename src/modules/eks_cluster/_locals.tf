@@ -10,7 +10,9 @@ locals {
   )
 
   subnet_ids = try(
-    [for ref in var.settings.subnet_refs : var.resources.subnets[ref].id],
+    [for ref in var.settings.subnet_refs :
+      var.resources.vpcs[split("/", ref)[0]].subnets[split("/", ref)[1]].id
+    ],
     try(var.settings.subnet_ids, null)
   )
 
