@@ -9,6 +9,6 @@ locals {
   )
 
   policy = try(
-    var.resources.iam_policies[var.settings.policy_ref].policy, var.settings.policy
+    var.resources.iam_policies[var.settings.policy_ref].json, var.settings.policy
   )
 }
