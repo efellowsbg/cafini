@@ -6,6 +6,6 @@ module "s3_bucket_policies" {
   global_settings = local.global_settings
   resources = {
     s3_buckets   = module.s3_buckets
-    iam_policies = module.iam_policy
+    iam_policies = module.iam_policies
   }
 }
