@@ -7,7 +7,7 @@ module "eks_clusters" {
 
   resources = {
     kms_keys       = module.kms_keys
-    vpc_id         = module.vpcs
+    vpcs           = module.vpcs
     iam_roles      = module.iam_roles
     security_group = module.security_groups
   }
