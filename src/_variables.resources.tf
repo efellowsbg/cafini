@@ -47,3 +47,5 @@ variable "s3_buckets" { default = {} }
 variable "s3_bucket_lifecycle_configurations" { default = {} }
 
 variable "s3_bucket_policies" { default = {} }
+
+variable "eks_clusters" { default = {} }
