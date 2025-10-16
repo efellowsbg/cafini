@@ -13,6 +13,8 @@ locals {
   )
 
   security_group_ids = try(
-    var.resources.security_groups[ref].id, var.settings.security_group_ids
+    [for ref in try(var.settings.security_group_refs, []) :
+      var.resources.security_groups[ref].id
+    ], var.settings.security_group_ids
   )
 }

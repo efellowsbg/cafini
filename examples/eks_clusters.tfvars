@@ -6,7 +6,7 @@ eks_clusters = {
 
     role_ref            = "role_test"
     subnet_refs         = "vpc_test/subnet_test"
-    security_group_refs = "sg_test"
+    security_group_refs = ["sg_test"]
 
     vpc_config = {
       endpoint_private_access = false
