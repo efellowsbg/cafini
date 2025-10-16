@@ -30,7 +30,7 @@ resource "aws_eks_node_group" "main" {
   }
 
   dynamic "launch_template" {
-    for_each = can(var.settings.launch_template) || can(var.settings.launch_template_ref) ? [1] : []
+    for_each = can(var.settings.launch_template) ? [1] : []
     content {
       id      = try(local.launch_template_id, null)
       name    = try(local.launch_template_name, null)
