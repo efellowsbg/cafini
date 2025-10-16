@@ -9,9 +9,7 @@ locals {
   )
 
   subnet_ids = try(
-    [for ref in var.settings.subnet_refs :
-      var.resources.vpcs[split("/", ref)[0]].subnets[split("/", ref)[1]].id
-    ], var.settings.subnet_ids
+    var.resources.vpcs[split("/", var.settings.subnet_ref)[0]].subnets[split("/", var.settings.subnet_ref)[1]].id
   )
 
   security_group_ids = try(
