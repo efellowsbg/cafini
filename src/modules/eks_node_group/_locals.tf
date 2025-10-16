@@ -13,7 +13,9 @@ locals {
   )
 
   subnet_ids = try(
-    var.resources.vpcs[split("/", var.settings.subnet_ref)[0]].subnets[split("/", var.settings.subnet_ref)[1]].id, var.settings.subnet_ids
+    [for ref in try(var.settings.subnet_refs, []) :
+      var.resources.vpcs[split("/", ref)[0]].subnets[split("/", ref)[1]].id
+    ], var.settings.subnet_ids
   )
 
   launch_template_id = try(
