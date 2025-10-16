@@ -13,6 +13,4 @@ module "eks_node_groups" {
     launch_templates = module.launch_templates
     security_groups  = module.security_groups
   }
-
-
 }
