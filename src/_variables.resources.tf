@@ -51,3 +51,5 @@ variable "s3_bucket_policies" { default = {} }
 variable "eks_node_groups" { default = {} }
 
 variable "eks_clusters" { default = {} }
+
+variable "ecs_clusters" { default = {} }
