@@ -55,3 +55,5 @@ variable "eks_clusters" { default = {} }
 variable "ecs_services" { default = {} }
 
 variable "ecs_clusters" { default = {} }
+
+variable "budgets_budgets" { default = {} }
