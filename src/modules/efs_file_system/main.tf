@@ -1,9 +1,9 @@
 resource "aws_efs_file_system" "main" {
-  creation_token   = try(var.settings.creation_token, null)
-  performance_mode = try(var.settings.performance_mode, null)
-  throughput_mode  = try(var.settings.throughput_mode, null)
-  region           = try(var.settings.region, null)
-  # availability_zone_name = try(local.availability_zone_name, null)
+  creation_token         = try(var.settings.creation_token, null)
+  performance_mode       = try(var.settings.performance_mode, null)
+  throughput_mode        = try(var.settings.throughput_mode, null)
+  region                 = try(var.settings.region, null)
+  availability_zone_name = try(var.settings.availability_zone_name, null)
 
   # --- Encryption ---
   encrypted  = try(var.settings.encrypted, false)
