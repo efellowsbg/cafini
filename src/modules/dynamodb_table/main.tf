@@ -1,8 +1,8 @@
 resource "aws_dynamodb_table" "main" {
   name         = var.settings.name
-  billing_mode = try(var.settings.billing_mode, null)
   hash_key     = var.settings.hash_key
   range_key    = try(var.settings.range_key, null)
+  billing_mode = try(var.settings.billing_mode, null)
   region       = try(var.settings.region, null)
 
   read_capacity  = try(var.settings.read_capacity, null)
@@ -13,16 +13,11 @@ resource "aws_dynamodb_table" "main" {
   stream_enabled              = try(var.settings.stream_enabled, false)
   stream_view_type            = try(var.settings.stream_view_type, null)
 
-  # --- Attributes ---
-  dynamic "attribute" {
-    for_each = try(var.settings.attribute, {})
-    content {
-      name = attribute.value.name
-      type = attribute.value.type
-    }
+  attribute {
+    name = var.settings.attribute.name
+    type = var.settings.attribute.type
   }
 
-  # --- Local Secondary Index ---
   dynamic "local_secondary_index" {
     for_each = try(var.settings.local_secondary_index, {})
     content {
@@ -33,7 +28,6 @@ resource "aws_dynamodb_table" "main" {
     }
   }
 
-  # --- Global Secondary Index ---
   dynamic "global_secondary_index" {
     for_each = try(var.settings.global_secondary_index, {})
     content {
@@ -47,7 +41,18 @@ resource "aws_dynamodb_table" "main" {
     }
   }
 
-  # --- TTL ---
+  dynamic "replica" {
+    for_each = try(var.settings.replica, {})
+    content {
+      region_name                 = replica.value.region_name
+      kms_key_arn                 = try(local.kms_key_arn, null)
+      consistency_mode            = try(replica.value.consistency_mode, null)
+      point_in_time_recovery      = try(replica.value.point_in_time_recovery, null)
+      propagate_tags              = try(replica.value.propagate_tags, null)
+      deletion_protection_enabled = try(replica.value.deletion_protection_enabled, null)
+    }
+  }
+
   dynamic "ttl" {
     for_each = can(var.settings.ttl) ? [1] : []
     content {
@@ -56,7 +61,6 @@ resource "aws_dynamodb_table" "main" {
     }
   }
 
-  # --- Point-in-Time Recovery ---
   dynamic "point_in_time_recovery" {
     for_each = can(var.settings.point_in_time_recovery) ? [1] : []
     content {
@@ -65,12 +69,27 @@ resource "aws_dynamodb_table" "main" {
     }
   }
 
-  # --- Server-Side Encryption ---
   dynamic "server_side_encryption" {
     for_each = can(var.settings.server_side_encryption) ? [1] : []
     content {
       enabled     = try(var.settings.server_side_encryption.enabled, true)
       kms_key_arn = try(local.kms_key_arn, null)
+    }
+  }
+
+  dynamic "on_demand_throughput" {
+    for_each = can(var.settings.on_demand_throughput) ? [1] : []
+    content {
+      max_read_request_units  = try(var.settings.on_demand_throughput.max_read_request_units, null)
+      max_write_request_units = try(var.settings.on_demand_throughput.max_write_request_units, null)
+    }
+  }
+
+  dynamic "warm_throughput" {
+    for_each = can(var.settings.warm_throughput) ? [1] : []
+    content {
+      read_units_per_second  = try(var.settings.warm_throughput.read_units_per_second, null)
+      write_units_per_second = try(var.settings.warm_throughput.write_units_per_second, null)
     }
   }
 
