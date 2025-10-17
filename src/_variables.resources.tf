@@ -56,6 +56,7 @@ variable "ecs_services" { default = {} }
 
 variable "ecs_clusters" { default = {} }
 
+variable "efs_file_systems" { default = {} }
 
 variable "budgets_budgets" { default = {} }
 
