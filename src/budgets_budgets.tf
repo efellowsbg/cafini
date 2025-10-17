@@ -1,4 +1,4 @@
-module "budgets" {
+module "budgets_budgets" {
   source   = "./modules/budgets_budget"
   for_each = var.budgets_budgets
 
