@@ -47,7 +47,6 @@ resource "aws_budgets_budget" "main" {
     }
   }
 
-  # --- Cost Filters ---
   dynamic "cost_filter" {
     for_each = try(var.settings.cost_filter, {})
     content {
@@ -56,7 +55,6 @@ resource "aws_budgets_budget" "main" {
     }
   }
 
-  # --- Notifications ---
   dynamic "notification" {
     for_each = try(var.settings.notification, {})
     content {
@@ -69,7 +67,6 @@ resource "aws_budgets_budget" "main" {
     }
   }
 
-  # --- Planned Limits ---
   dynamic "planned_limit" {
     for_each = try(var.settings.planned_limit, {})
     content {
