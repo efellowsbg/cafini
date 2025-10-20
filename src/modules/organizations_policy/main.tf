@@ -1,6 +1,6 @@
 resource "aws_organizations_policy" "main" {
   name    = var.settings.name
-  content = var.settings.content
+  content = jsonencode(var.settings.content)
 
   description  = try(var.settings.description, null)
   type         = try(var.settings.type, null)
