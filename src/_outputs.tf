@@ -97,3 +97,43 @@ output "s3_buckets" {
 output "s3_bucket_lifecycle_configurations" {
   value = module.s3_bucket_lifecycle_configurations
 }
+
+output "s3_bucket_policies" {
+  value = module.s3_bucket_policies
+}
+
+output "organizations_accounts" {
+  value = module.organizations_accounts
+}
+
+output "organizations_policies" {
+  value = module.organizations_policies
+}
+
+output "ecs_services" {
+  value = module.ecs_services
+}
+
+output "ecs_clusters" {
+  value = module.ecs_clusters
+}
+
+output "eks_clusters" {
+  value = module.eks_clusters
+}
+
+output "eks_node_groups" {
+  value = module.eks_node_groups
+}
+
+output "efs_file_systems" {
+  value = module.efs_file_systems
+}
+
+output "dynamodb_tables" {
+  value = module.dynamodb_tables
+}
+
+output "budgets_budgets" {
+  value = module.budgets_budgets
+}
