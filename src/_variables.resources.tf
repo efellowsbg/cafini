@@ -61,3 +61,5 @@ variable "efs_file_systems" { default = {} }
 variable "budgets_budgets" { default = {} }
 
 variable "dynamodb_tables" { default = {} }
+
+variable "organizations_accounts" { default = {} }
