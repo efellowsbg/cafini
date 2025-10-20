@@ -63,3 +63,5 @@ variable "budgets_budgets" { default = {} }
 variable "dynamodb_tables" { default = {} }
 
 variable "organizations_accounts" { default = {} }
+
+variable "organizations_policies" { default = {} }
