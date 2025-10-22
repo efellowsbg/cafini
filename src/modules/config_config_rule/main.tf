@@ -13,9 +13,9 @@ resource "aws_config_config_rule" "main" {
     dynamic "source_detail" {
       for_each = try(var.settings.source.source_details, {})
       content {
-        event_source                = try(source_details.value.event_source, null)
-        maximum_execution_frequency = try(source_details.value.maximum_execution_frequency, null)
-        message_type                = try(source_details.value.message_type, null)
+        event_source                = try(source_detail.value.event_source, null)
+        maximum_execution_frequency = try(source_detail.value.maximum_execution_frequency, null)
+        message_type                = try(source_detail.value.message_type, null)
       }
     }
 

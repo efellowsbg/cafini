@@ -1,7 +1,7 @@
 locals {
   source_identifier = try(
-    var.resources.lambda_functions[var.settings.source_identifier_ref].arn,
-    try(var.settings.source_identifier, null)
+    var.resources.lambda_functions[var.settings.source.source_identifier_ref].arn,
+    try(var.settings.source.source_identifier, null)
   )
 
   tags = merge(
