@@ -67,3 +67,5 @@ variable "cloudtrails" { default = {} }
 variable "organizations_accounts" { default = {} }
 
 variable "organizations_policies" { default = {} }
+
+variable "config_config_rules" { default = {} }
