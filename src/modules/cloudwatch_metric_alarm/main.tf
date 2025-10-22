@@ -22,15 +22,15 @@ resource "aws_cloudwatch_metric_alarm" "main" {
   evaluate_low_sample_count_percentiles = try(var.settings.evaluate_low_sample_count_percentiles, null)
   tags                                  = local.tags
 
-  dynamic "metric_querys" {
+  dynamic "metric_query" {
     for_each = try(var.settings.metric_querys, {})
     content {
       id          = metric_querys.value.id
-      account_id  = try(metric_querys.value.account_id, null)
-      expression  = try(metric_querys.value.expression, null)
-      label       = try(metric_querys.value.label, null)
-      perdiod     = try(metric_querys.value.period, null)
-      return_data = try(metric_querys.value.return_data, null)
+      account_id  = try(metric_query.value.account_id, null)
+      expression  = try(metric_query.value.expression, null)
+      label       = try(metric_query.value.label, null)
+      period      = try(metric_query.value.period, null)
+      return_data = try(metric_query.value.return_data, null)
 
       dynamic "metric" {
         for_each = try(var.settings.metric_querys.metrics, {})
