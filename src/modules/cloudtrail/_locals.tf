@@ -1,6 +1,6 @@
 locals {
   s3_bucket_name = try(
-    var.resources.s3_bucket[var.settings.s3_bucket_name_ref].name,
+    var.resources.s3_buckets[var.settings.s3_bucket_name_ref].name,
     var.settings.s3_bucket_name
   )
 
