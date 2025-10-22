@@ -25,7 +25,7 @@ resource "aws_cloudwatch_metric_alarm" "main" {
   dynamic "metric_query" {
     for_each = try(var.settings.metric_querys, {})
     content {
-      id          = metric_querys.value.id
+      id          = metric_query.value.id
       account_id  = try(metric_query.value.account_id, null)
       expression  = try(metric_query.value.expression, null)
       label       = try(metric_query.value.label, null)
@@ -33,7 +33,7 @@ resource "aws_cloudwatch_metric_alarm" "main" {
       return_data = try(metric_query.value.return_data, null)
 
       dynamic "metric" {
-        for_each = try(var.settings.metric_querys.metrics, {})
+        for_each = try(var.settings.metric_query.metrics, {})
         content {
           metric_name = metric.value.metric_name
           namespace   = metric.value.namespace
