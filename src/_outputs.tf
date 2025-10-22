@@ -97,3 +97,7 @@ output "s3_buckets" {
 output "s3_bucket_lifecycle_configurations" {
   value = module.s3_bucket_lifecycle_configurations
 }
+
+output "cloudtrails" {
+  value = module.cloudtrails
+}
