@@ -5,7 +5,7 @@ resource "aws_cloudwatch_metric_alarm" "main" {
   insufficient_data_actions             = local.insufficient_data_actions
   ok_actions                            = local.ok_actions
   region                                = try(var.settings.region, null)
-  metric_name                           = try(var.settings.metric_name, "Default")
+  metric_name                           = try(var.settings.metric_name, null)
   namespace                             = try(var.settings.namespace, null)
   period                                = try(var.settings.period, null)
   statistic                             = try(var.settings.statistic, null)
@@ -17,7 +17,7 @@ resource "aws_cloudwatch_metric_alarm" "main" {
   datapoints_to_alarm                   = try(var.settings.datapoints_to_alarm, null)
   dimensions                            = try(var.settings.dimensions, null)
   extended_statistic                    = try(var.settings.extended_statistic, null)
-  treat_missing_data                    = try(var.settings.treat_missing_data, null)
+  treat_missing_data                    = try(var.settings.treat_missing_data, "missing")
   unit                                  = try(var.settings.unit, null)
   evaluate_low_sample_count_percentiles = try(var.settings.evaluate_low_sample_count_percentiles, null)
   tags                                  = local.tags
