@@ -56,7 +56,8 @@ variable "ecs_services" { default = {} }
 
 variable "ecs_clusters" { default = {} }
 
-
 variable "budgets_budgets" { default = {} }
 
 variable "dynamodb_tables" { default = {} }
+
+variable "cloudtrails" { default = {} }
