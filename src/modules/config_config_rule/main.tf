@@ -10,7 +10,7 @@ resource "aws_config_config_rule" "main" {
     owner             = var.settings.source.owner
     source_identifier = local.source_identifier
 
-    dynamic "source_details" {
+    dynamic "source_detail" {
       for_each = try(var.settings.source.source_details, {})
       content {
         event_source                = try(source_details.value.event_source, null)

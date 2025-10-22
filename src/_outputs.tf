@@ -130,8 +130,8 @@ output "eks_node_groups" {
   value = module.eks_node_groups
 }
 
-output "efs_file_systems" {
-  value = module.efs_file_systems
+output "efs_file_system" {
+  value = module.efs_file_system
 }
 
 output "dynamodb_tables" {
