@@ -100,7 +100,8 @@ output "s3_bucket_lifecycle_configurations" {
 
 output "cloudtrails" {
   value = module.cloudtrails
-    
+}
+
 output "s3_bucket_policies" {
   value = module.s3_bucket_policies
 }
