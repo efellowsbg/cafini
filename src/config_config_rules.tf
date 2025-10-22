@@ -6,7 +6,7 @@ module "config_config_rules" {
   global_settings = local.global_settings
 
   resources = {
-    # kms_keys = module.kms_keys
+    lambda_functions = module.lambda_functions
   }
 
   # client_config = {

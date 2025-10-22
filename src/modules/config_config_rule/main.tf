@@ -1,7 +1,7 @@
 resource "aws_config_config_rule" "main" {
   name                        = var.settings.name
   description                 = try(var.settings.description, null)
-  input_parameters            = try(var.settings.input_parameters, null)
+  input_parameters            = try(jsonencode(var.settings.input_parameters), null)
   maximum_execution_frequency = try(var.settings.maximum_execution_frequency, null)
 
   tags = local.tags

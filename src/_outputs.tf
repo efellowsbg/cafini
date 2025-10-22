@@ -141,3 +141,7 @@ output "dynamodb_tables" {
 output "budgets_budgets" {
   value = module.budgets_budgets
 }
+
+output "config_config_rules" {
+  value = module.config_config_rules
+}
