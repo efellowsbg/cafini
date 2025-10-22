@@ -130,8 +130,8 @@ output "eks_node_groups" {
   value = module.eks_node_groups
 }
 
-output "efs_file_systems" {
-  value = module.efs_file_systems
+output "efs_file_system" {
+  value = module.efs_file_system
 }
 
 output "dynamodb_tables" {
@@ -140,4 +140,8 @@ output "dynamodb_tables" {
 
 output "budgets_budgets" {
   value = module.budgets_budgets
+}
+
+output "config_config_rules" {
+  value = module.config_config_rules
 }
