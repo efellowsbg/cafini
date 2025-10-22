@@ -17,7 +17,7 @@ resource "aws_cloudwatch_metric_alarm" "main" {
   datapoints_to_alarm                   = try(var.settings.datapoints_to_alarm, null)
   dimensions                            = try(var.settings.dimensions, null)
   extended_statistic                    = try(var.settings.extended_statistic, null)
-  treat_missing_data                    = try(var.settings.treat_missing_data, "missing")
+  treat_missing_data                    = try(var.settings.treat_missing_data, "notBreaching")
   unit                                  = try(var.settings.unit, null)
   evaluate_low_sample_count_percentiles = try(var.settings.evaluate_low_sample_count_percentiles, null)
   tags                                  = local.tags
