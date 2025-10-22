@@ -5,7 +5,7 @@ resource "aws_cloudwatch_metric_alarm" "main" {
   insufficient_data_actions             = local.insufficient_data_actions
   ok_actions                            = local.ok_actions
   region                                = try(var.settings.region, null)
-  metric_name                           = try(var.settings.metric_name, null)
+  metric_name                           = try(var.settings.metric_name, "Default")
   namespace                             = try(var.settings.namespace, null)
   period                                = try(var.settings.period, null)
   statistic                             = try(var.settings.statistic, null)
