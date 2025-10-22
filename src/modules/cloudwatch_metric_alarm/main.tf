@@ -1,20 +1,28 @@
 resource "aws_cloudwatch_metric_alarm" "main" {
-  alarm_name                            = var.settings.alarm_name
-  comparison_operator                   = var.settings.comparison_operator
-  evaluation_periods                    = var.settings.evaluation_periods
-  insufficient_data_actions             = local.insufficient_data_actions
-  ok_actions                            = local.ok_actions
-  region                                = try(var.settings.region, null)
-  metric_name                           = try(var.settings.metric_name, null)
-  namespace                             = try(var.settings.namespace, null)
-  period                                = try(var.settings.period, null)
-  statistic                             = try(var.settings.statistic, null)
-  threshold                             = try(var.settings.threshold, null)
-  threshold_metric_id                   = try(var.settings.threshold_metric_id, null)
-  actions_enabled                       = try(var.settings.actions_enabled, null)
-  alarm_actions                         = try(var.settings.alarm_actions, null)
-  alarm_description                     = try(var.settings.alarm_description, null)
-  datapoints_to_alarm                   = try(var.settings.datapoints_to_alarm, null)
+  alarm_name          = var.settings.alarm_name
+  comparison_operator = var.settings.comparison_operator
+  evaluation_periods  = var.settings.evaluation_periods
+
+  # TODO: Implement references the actions argument for:
+  #       SNS topics – send notifications to email, Slack, or other endpoints.
+  #       Auto Scaling policies – scale EC2 instances up or down.
+  #       EC2 actions – stop, terminate, reboot, or recover an instance.
+  #       Lambda functions – trigger custom automation.
+  insufficient_data_actions = local.insufficient_data_actions
+  ok_actions                = local.ok_actions
+  alarm_actions             = local.alarm_actions
+
+  region              = try(var.settings.region, null)
+  metric_name         = try(var.settings.metric_name, null)
+  namespace           = try(var.settings.namespace, null)
+  period              = try(var.settings.period, null)
+  statistic           = try(var.settings.statistic, null)
+  threshold           = try(var.settings.threshold, null)
+  threshold_metric_id = try(var.settings.threshold_metric_id, null)
+  actions_enabled     = try(var.settings.actions_enabled, null)
+  alarm_description   = try(var.settings.alarm_description, null)
+  datapoints_to_alarm = try(var.settings.datapoints_to_alarm, null)
+  # TODO: Possibly implement reference to resources in dimensions argument
   dimensions                            = try(var.settings.dimensions, null)
   extended_statistic                    = try(var.settings.extended_statistic, null)
   treat_missing_data                    = try(var.settings.treat_missing_data, null)
