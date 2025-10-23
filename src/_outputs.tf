@@ -145,3 +145,7 @@ output "budgets_budgets" {
 output "config_config_rules" {
   value = module.config_config_rules
 }
+
+output "cloudwatch_metric_alarms" {
+  value = module.cloudwatch_metric_alarms
+}
