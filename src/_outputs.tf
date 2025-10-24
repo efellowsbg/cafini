@@ -149,3 +149,7 @@ output "config_config_rules" {
 output "cloudwatch_metric_alarms" {
   value = module.cloudwatch_metric_alarms
 }
+
+output "config_configuration_recorders" {
+  value = module.config_configuration_recorders
+}
