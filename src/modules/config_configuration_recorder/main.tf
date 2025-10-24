@@ -3,15 +3,6 @@ resource "aws_config_configuration_recorder" "main" {
   name     = try(var.settings.name, null)
   region   = try(var.settings.region, null)
 
-  dynamic "custom_policy_details" {
-    for_each = can(var.settings.source.custom_policy_details) ? [1] : []
-    content {
-      enable_debug_log_delivery = try(var.settings.source.custom_policy_details.enable_debug_log_delivery, null)
-      policy_runtime            = var.settings.source.custom_policy_details.event_source
-      policy_text               = var.settings.source.custom_policy_details.maximum_execution_frequency
-    }
-  }
-
   dynamic "recording_group" {
     for_each = can(var.settings.recording_group) ? [1] : []
 
