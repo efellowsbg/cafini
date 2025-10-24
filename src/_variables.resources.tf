@@ -71,3 +71,5 @@ variable "organizations_policies" { default = {} }
 variable "config_config_rules" { default = {} }
 
 variable "cloudwatch_metric_alarms" { default = {} }
+
+variable "config_configuration_recorders" { default = {} }
