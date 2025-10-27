@@ -6,7 +6,9 @@ module "sns_topics" {
   global_settings = local.global_settings
 
   resources = {
-    # kms_keys = module.kms_keys
+    kms_keys     = module.kms_keys
+    iam_roles    = module.iam_roles
+    iam_policies = module.iam_policies
   }
 
   # client_config = {
