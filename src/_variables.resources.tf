@@ -70,4 +70,6 @@ variable "organizations_policies" { default = {} }
 
 variable "config_config_rules" { default = {} }
 
+variable "sns_topics" { default = {} }
+
 variable "cloudwatch_metric_alarms" { default = {} }

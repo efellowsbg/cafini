@@ -146,6 +146,10 @@ output "config_config_rules" {
   value = module.config_config_rules
 }
 
+output "sns_topics" {
+  value = module.sns_topics
+}
+
 output "cloudwatch_metric_alarms" {
   value = module.cloudwatch_metric_alarms
 }

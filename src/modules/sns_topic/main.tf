@@ -1,0 +1,31 @@
+resource "aws_sns_topic" "main" {
+  region                                   = try(var.settings.region, null)
+  name                                     = try(var.settings.name, null)
+  name_prefix                              = try(var.settings.name_prefix, null)
+  display_name                             = try(var.settings.display_name, null)
+  policy                                   = try(var.settings.policy, null)
+  archive_policy                           = try(var.settings.archive_policy, null)
+  delivery_policy                          = try(var.settings.delivery_policy, null)
+  content_based_deduplication              = try(var.settings.content_based_deduplication, null)
+  application_success_feedback_role_arn    = local.application_success_feedback_role_arn
+  application_failure_feedback_role_arn    = local.application_failure_feedback_role_arn
+  http_success_feedback_role_arn           = local.http_success_feedback_role_arn
+  http_failure_feedback_role_arn           = local.http_failure_feedback_role_arn
+  lambda_success_feedback_role_arn         = local.lambda_success_feedback_role_arn
+  lambda_failure_feedback_role_arn         = local.lambda_failure_feedback_role_arn
+  sqs_success_feedback_role_arn            = local.sqs_success_feedback_role_arn
+  sqs_failure_feedback_role_arn            = local.sqs_failure_feedback_role_arn
+  firehose_success_feedback_role_arn       = local.firehose_success_feedback_role_arn
+  firehose_failure_feedback_role_arn       = local.firehose_failure_feedback_role_arn
+  kms_master_key_id                        = local.kms_master_key_id
+  application_success_feedback_sample_rate = try(var.settings.application_success_feedback_sample_rate, null)
+  http_success_feedback_sample_rate        = try(var.settings.http_success_feedback_sample_rate, null)
+  lambda_success_feedback_sample_rate      = try(var.settings.lambda_success_feedback_sample_rate, null)
+  sqs_success_feedback_sample_rate         = try(var.settings.sqs_success_feedback_sample_rate, null)
+  firehose_success_feedback_sample_rate    = try(var.settings.firehose_success_feedback_sample_rate, null)
+  signature_version                        = try(var.settings.signature_version, null)
+  tracing_config                           = try(var.settings.tracing_config, null)
+  fifo_throughput_scope                    = try(var.settings.fifo_throughput_scope, null)
+  fifo_topic                               = try(var.settings.fifo_topic, null)
+  tags                                     = local.tags
+}
