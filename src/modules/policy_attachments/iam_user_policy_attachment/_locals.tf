@@ -1,6 +1,6 @@
 locals {
   user = try(
-    var.resources.iam_users[var.settings.user_ref].id,
+    var.resources.iam_users[var.settings.user_ref].name,
     var.settings.user
   )
 

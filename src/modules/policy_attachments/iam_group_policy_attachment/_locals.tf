@@ -1,6 +1,6 @@
 locals {
   group = try(
-    var.resources.iam_groups[var.settings.group_ref].id,
+    var.resources.iam_groups[var.settings.group_ref].name,
     var.settings.group
   )
 

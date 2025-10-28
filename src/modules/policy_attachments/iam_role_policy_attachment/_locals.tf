@@ -1,6 +1,6 @@
 locals {
   role = try(
-    var.resources.iam_roles[var.settings.role_ref].id,
+    var.resources.iam_roles[var.settings.role_ref].name,
     var.settings.role
   )
 
