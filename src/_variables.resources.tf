@@ -38,6 +38,12 @@ variable "ec2_instances" { default = {} }
 
 variable "iam_policy_attachments" { default = {} }
 
+variable "iam_user_policy_attachments" { default = {} }
+
+variable "iam_group_policy_attachments" { default = {} }
+
+variable "iam_role_policy_attachments" { default = {} }
+
 variable "autoscaling_groups" { default = {} }
 
 variable "lambda_functions" { default = {} }
