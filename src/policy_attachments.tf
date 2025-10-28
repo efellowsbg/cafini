@@ -21,7 +21,8 @@ module "iam_user_policy_attachments" {
   global_settings = local.global_settings
 
   resources = {
-
+    iam_users    = module.iam_users
+    iam_policies = module.iam_policies
   }
 }
 
@@ -46,6 +47,7 @@ module "iam_role_policy_attachments" {
   global_settings = local.global_settings
 
   resources = {
-
+    iam_roles    = module.iam_roles
+    iam_policies = module.iam_policies
   }
 }
