@@ -70,6 +70,7 @@ resource "aws_db_instance" "main" {
   # performance_insights_kms_key_id        = try(var.settings.performance_insights_kms_key_id, null)
   # vpc_security_group_ids        = try(var.settings.vpc_security_group_ids, null)
   kms_key_id = local.kms_key_id
+  tags       = local.tags
 
   dynamic "blue_green_update" {
     for_each = can(var.settings.blue_green_update) ? [1] : []

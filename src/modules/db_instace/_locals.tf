@@ -1,4 +1,8 @@
 locals {
+  kms_key_id = try(
+    var.resources.key_pairs[var.settings.kms_key_ref].key_name,
+    try(var.settings.kms_key_id, null)
+  )
   # insufficient_data_actions = (
   #   length(try(var.settings.insufficient_data_actions_refs, [])) > 0 ?
   #   [for ref in var.settings.insufficient_data_actions_refs : var.resources.sns_topics[ref].arn] :
