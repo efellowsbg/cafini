@@ -30,7 +30,7 @@ locals {
   )
 
   source_db_instance_identifier = try(
-    var.resources.db_instances[var.settings.source_db_instance_identifier_ref].identifier,
+    aws_db_instance.main[var.settings.source_db_instance_identifier_ref].identifier,
     try(var.settings.source_db_instance_identifier, null)
   )
 
