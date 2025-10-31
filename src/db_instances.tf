@@ -6,7 +6,13 @@ module "db_instances" {
   global_settings = local.global_settings
 
   resources = {
-    # iam_roles = module.iam_roles
+    secretsmanager_secrets        = module.secretsmanager_secrets
+    iam_roles                     = module.iam_roles
+    security_groups               = module.security_groups
+    db_instances                  = modules.db_instances
+    directory_service_directories = module.directory_service_directories
+    db_option_groups              = module.db_option_groups
+    db_parameter_groups           = module.db_parameter_groups
   }
 
   # client_config = {

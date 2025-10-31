@@ -3,7 +3,6 @@ resource "aws_db_instance" "main" {
   region                                = try(var.settings.region, null)
   allocated_storage                     = try(var.settings.allocated_storage, null)
   allow_major_version_upgrade           = try(var.settings.allow_major_version_upgrade, null)
-  domain_dns_ips                        = try(var.settings.domain_dns_ips, null)
   domain_ou                             = try(var.settings.domain_ou, null)
   engine                                = try(var.settings.engine, null)
   enabled_cloudwatch_logs_exports       = try(var.settings.enabled_cloudwatch_logs_exports, null)
@@ -14,7 +13,6 @@ resource "aws_db_instance" "main" {
   backup_retention_period               = try(var.settings.backup_retention_period, null)
   backup_target                         = try(var.settings.backup_target, null)
   backup_window                         = try(var.settings.backup_window, null)
-  ca_cert_identifier                    = try(var.settings.ca_cert_identifier, null)
   character_set_name                    = try(var.settings.character_set_name, null)
   copy_tags_to_snapshot                 = try(var.settings.copy_tags_to_snapshot, null)
   custom_iam_instance_profile           = try(var.settings.custom_iam_instance_profile, null)
@@ -22,7 +20,6 @@ resource "aws_db_instance" "main" {
   db_name                               = try(var.settings.db_name, null)
   identifier                            = try(var.settings.identifier, null)
   identifier_prefix                     = try(var.settings.identifier_prefix, null)
-  db_subnet_group_name                  = try(var.settings.db_subnet_group_name, null)
   dedicated_log_volume                  = try(var.settings.dedicated_log_volume, null)
   delete_automated_backups              = try(var.settings.delete_automated_backups, null)
   deletion_protection                   = try(var.settings.deletion_protection, null)
@@ -55,22 +52,21 @@ resource "aws_db_instance" "main" {
   storage_throughput                    = try(var.settings.storage_throughput, null)
   timezone                              = try(var.settings.timezone, null)
   customer_owned_ip_enabled             = try(var.settings.customer_owned_ip_enabled, null)
-  # domain_auth_secret_arn      = try(var.settings.domain_auth_secret_arn, null)
-  # domain        = try(var.settings.domain, null)
-  # domain_auth_secret_arn        = try(var.settings.domain_auth_secret_arn, null)
-  # domain_dns_ips        = try(var.settings.domain_dns_ips, null)
-  # domain_fqdn        = try(var.settings.domain_fqdn, null)
-  # domain_iam_role_name        = try(var.settings.domain_iam_role_name, null)
-  # domain_ou        = try(var.settings.domain_ou, null)
-  # enabled_cloudwatch_logs_exports        = try(var.settings.enabled_cloudwatch_logs_exports, null)
-  # master_user_secret_kms_key_id        = try(var.settings.master_user_secret_kms_key_id, null)
-  # monitoring_role_arn        = try(var.settings.monitoring_role_arn, null)
-  # option_group_name        = try(var.settings.option_group_name, null)
-  # parameter_group_name        = try(var.settings.parameter_group_name, null)
-  # performance_insights_kms_key_id        = try(var.settings.performance_insights_kms_key_id, null)
-  # vpc_security_group_ids        = try(var.settings.vpc_security_group_ids, null)
-  kms_key_id = local.kms_key_id
-  tags       = local.tags
+  domain_fqdn                           = try(var.settings.domain_fqdn, null)
+  domain_auth_secret_arn                = local.domain_auth_secret_arn
+  domain_iam_role_name                  = local.domain_iam_role_name
+  domain                                = local.domain
+  domain_dns_ips                        = local.domain_dns_ips
+  option_group_name                     = local.option_group_name
+  parameter_group_name                  = local.parameter_group_name
+  ca_cert_identifier                    = try(var.settings.ca_cert_identifier, null)
+  db_subnet_group_name                  = try(var.settings.db_subnet_group_name, null)
+  master_user_secret_kms_key_id         = local.master_user_secret_kms_key_id
+  monitoring_role_arn                   = local.monitoring_role_arn
+  performance_insights_kms_key_id       = local.performance_insights_kms_key_id
+  vpc_security_group_ids                = local.vpc_security_group_ids
+  kms_key_id                            = local.kms_key_id
+  tags                                  = local.tags
 
   dynamic "blue_green_update" {
     for_each = can(var.settings.blue_green_update) ? [1] : []
@@ -82,11 +78,11 @@ resource "aws_db_instance" "main" {
   dynamic "restore_to_point_in_time" {
     for_each = can(var.settings.restore_to_point_in_time) ? [1] : []
     content {
-      restore_time = try(var.settings.restore_to_point_in_time.restore_time, null)
-      # source_db_instance_identifier = try(var.settings.restore_to_point_in_time.source_db_instance_identifier, null)
-      # source_db_instance_automated_backups_arn = try(var.settings.restore_to_point_in_time.source_db_instance_automated_backups_arn, null)
-      # source_dbi_resource_id = try(var.settings.restore_to_point_in_time.source_dbi_resource_id, null)
-      # use_latest_restorable_time = try(var.settings.restore_to_point_in_time.use_latest_restorable_time, null)
+      restore_time                             = try(var.settings.restore_to_point_in_time.restore_time, null)
+      source_db_instance_automated_backups_arn = try(var.settings.restore_to_point_in_time.source_db_instance_automated_backups_arn, null)
+      use_latest_restorable_time               = try(var.settings.restore_to_point_in_time.use_latest_restorable_time, null)
+      source_db_instance_identifier            = local.source_db_instance_identifier
+      source_dbi_resource_id                   = local.source_dbi_resource_id
     }
   }
 

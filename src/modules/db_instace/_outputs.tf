@@ -17,3 +17,7 @@ output "db_name" {
 output "endpoint" {
   value = aws_db_instance.main.endpoint
 }
+
+output "identifier" {
+  value = aws_db_instance.main.identifier
+}
