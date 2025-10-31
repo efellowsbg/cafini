@@ -53,14 +53,14 @@ resource "aws_db_instance" "main" {
   timezone                              = try(var.settings.timezone, null)
   customer_owned_ip_enabled             = try(var.settings.customer_owned_ip_enabled, null)
   domain_fqdn                           = try(var.settings.domain_fqdn, null)
+  ca_cert_identifier                    = try(var.settings.ca_cert_identifier, null)
   domain_auth_secret_arn                = local.domain_auth_secret_arn
   domain_iam_role_name                  = local.domain_iam_role_name
   domain                                = local.domain
   domain_dns_ips                        = local.domain_dns_ips
   option_group_name                     = local.option_group_name
   parameter_group_name                  = local.parameter_group_name
-  ca_cert_identifier                    = try(var.settings.ca_cert_identifier, null)
-  db_subnet_group_name                  = try(var.settings.db_subnet_group_name, null)
+  db_subnet_group_name                  = local.db_subnet_group_name
   master_user_secret_kms_key_id         = local.master_user_secret_kms_key_id
   monitoring_role_arn                   = local.monitoring_role_arn
   performance_insights_kms_key_id       = local.performance_insights_kms_key_id

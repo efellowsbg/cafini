@@ -4,6 +4,11 @@ locals {
     try(var.settings.domain_auth_secret_arn, null)
   )
 
+  db_subnet_group_name = ry(
+    var.resources.db_subnet_groups[var.settings.db_subnet_group_ref].name,
+    try(var.settings.db_subnet_group_name, null)
+  )
+
   parameter_group_name = try(
     var.resources.db_parameter_groups[var.settings.parameter_group_ref].name,
     try(var.settings.parameter_group_name, null)

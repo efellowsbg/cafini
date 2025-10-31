@@ -13,6 +13,7 @@ module "db_instances" {
     directory_service_directories = module.directory_service_directories
     db_option_groups              = module.db_option_groups
     db_parameter_groups           = module.db_parameter_groups
+    db_subnet_groups              = module.db_subnet_groups
   }
 
   # client_config = {
