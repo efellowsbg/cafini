@@ -29,15 +29,15 @@ locals {
     try(var.settings.domain_dns_ips, null)
   )
 
-  source_db_instance_identifier = try(
-    aws_db_instance.main[var.settings.source_db_instance_identifier_ref].identifier,
-    try(var.settings.source_db_instance_identifier, null)
-  )
+  # source_db_instance_identifier = try(
+  #   aws_db_instance[var.settings.source_db_instance_identifier_ref].identifier,
+  #   try(var.settings.source_db_instance_identifier, null)
+  # )
 
-  source_dbi_resource_id = try(
-    var.resources.db_instances[var.settings.source_dbi_resource_ref].id,
-    try(var.settings.source_dbi_resource_id, null)
-  )
+  # source_dbi_resource_id = try(
+  #   aws_db_instance[var.settings.source_dbi_resource_ref].id,
+  #   try(var.settings.source_dbi_resource_id, null)
+  # )
 
   vpc_security_group_ids = (
     length(try(var.settings.vpc_security_group_refs, [])) > 0 ?

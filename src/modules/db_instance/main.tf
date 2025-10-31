@@ -81,8 +81,14 @@ resource "aws_db_instance" "main" {
       restore_time                             = try(var.settings.restore_to_point_in_time.restore_time, null)
       source_db_instance_automated_backups_arn = try(var.settings.restore_to_point_in_time.source_db_instance_automated_backups_arn, null)
       use_latest_restorable_time               = try(var.settings.restore_to_point_in_time.use_latest_restorable_time, null)
-      source_db_instance_identifier            = local.source_db_instance_identifier
-      source_dbi_resource_id                   = local.source_dbi_resource_id
+      source_db_instance_identifier = try(
+        module.db_instances[var.settings.restore_to_point_in_time.source_db_instance_identifier_ref].identifier,
+        try(var.settings.restore_to_point_in_time.source_db_instance_identifier, null)
+      )
+      source_dbi_resource_id = try(
+        module.db_instances[var.settings.restore_to_point_in_time.source_dbi_resource_id].id,
+        try(var.settings.restore_to_point_in_time.source_dbi_resource_id, null)
+      )
     }
   }
 
