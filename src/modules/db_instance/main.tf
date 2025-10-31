@@ -86,7 +86,7 @@ resource "aws_db_instance" "main" {
         try(var.settings.restore_to_point_in_time.source_db_instance_identifier, null)
       )
       source_dbi_resource_id = try(
-        module.db_instances[var.settings.restore_to_point_in_time.source_dbi_resource_id].id,
+        module.db_instances[var.settings.restore_to_point_in_time.source_dbi_resource_ref].id,
         try(var.settings.restore_to_point_in_time.source_dbi_resource_id, null)
       )
     }
