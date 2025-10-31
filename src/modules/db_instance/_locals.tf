@@ -29,6 +29,16 @@ locals {
     try(var.settings.domain_dns_ips, null)
   )
 
+  import_bucket_name = try(
+    var.resources.s3_buckets[var.settings.s3_import.bucket_ref].name,
+    var.settings.s3_import.bucket_name
+  )
+
+  import_ingestion_role = try(
+    var.resources.s3_buckets[var.settings.s3_import.ingestion_role_ref].id,
+    var.settings.s3_import.ingestion_role
+  )
+
   # source_db_instance_identifier = try(
   #   aws_db_instance[var.settings.source_db_instance_identifier_ref].identifier,
   #   try(var.settings.source_db_instance_identifier, null)

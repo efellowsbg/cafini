@@ -95,10 +95,10 @@ resource "aws_db_instance" "main" {
   dynamic "s3_import" {
     for_each = can(var.settings.s3_import) ? [1] : []
     content {
-      bucket_name           = var.settings.s3_import.bucket_name
-      ingestion_role        = var.settings.s3_import.ingestion_role
-      source_engine         = var.settings.s3_import.source_engine
-      source_engine_version = var.settings.s3_import.source_engine_version
+      bucket_name           = local.import_bucket_name
+      ingestion_role        = local.import_ingestion_role
+      source_engine         = try(var.settings.s3_import.source_engine, "mysql")
+      source_engine_version = try(var.settings.s3_import.source_engine_version, "5.6")
       bucket_prefix         = try(var.settings.s3_import.bucket_prefix, null)
     }
   }

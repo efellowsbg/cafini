@@ -9,6 +9,7 @@ module "db_instances" {
     secretsmanager_secrets = module.secretsmanager_secrets
     iam_roles              = module.iam_roles
     security_groups        = module.security_groups
+    s3_buckets             = moduile.s3_buckets
     # directory_service_directories = module.directory_service_directories
     # db_option_groups              = module.db_option_groups
     # db_parameter_groups           = module.db_parameter_groups
