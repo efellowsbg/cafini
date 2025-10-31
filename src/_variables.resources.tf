@@ -82,4 +82,4 @@ variable "cloudwatch_metric_alarms" { default = {} }
 
 variable "config_configuration_recorders" { default = {} }
 
-variable "db_instance" { default = {} }
+variable "db_instances" { default = {} }

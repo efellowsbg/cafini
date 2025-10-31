@@ -1,6 +1,6 @@
 module "db_instances" {
   source   = "./modules/db_instance"
-  for_each = var.db_instance
+  for_each = var.db_instances
 
   settings        = each.value
   global_settings = local.global_settings
