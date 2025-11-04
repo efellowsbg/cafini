@@ -35,7 +35,7 @@ locals {
   )
 
   import_ingestion_role = try(
-    var.resources.s3_buckets[var.settings.s3_import.ingestion_role_ref].id,
+    var.resources.iam_roles[var.settings.s3_import.ingestion_role_ref].id,
     var.settings.s3_import.ingestion_role
   )
 
