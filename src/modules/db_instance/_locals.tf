@@ -29,15 +29,15 @@ locals {
     try(var.settings.domain_dns_ips, null)
   )
 
-  import_bucket_name = try(
-    var.resources.s3_buckets[var.settings.s3_import.bucket_ref].name,
-    var.settings.s3_import.bucket_name
-  )
+  # import_bucket_name = try(
+  #   var.resources.s3_buckets[var.settings.s3_import.bucket_ref].name,
+  #   var.settings.s3_import.bucket_name
+  # )
 
-  import_ingestion_role = try(
-    var.resources.iam_roles[var.settings.s3_import.ingestion_role_ref].id,
-    var.settings.s3_import.ingestion_role
-  )
+  # import_ingestion_role = try(
+  #   var.resources.iam_roles[var.settings.s3_import.ingestion_role_ref].id,
+  #   var.settings.s3_import.ingestion_role
+  # )
 
   vpc_security_group_ids = (
     length(try(var.settings.vpc_security_group_refs, [])) > 0 ?
