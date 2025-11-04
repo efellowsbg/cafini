@@ -90,11 +90,11 @@ resource "aws_db_instance" "main" {
     for_each = can(var.settings.s3_import) ? [1] : []
     content {
       bucket_name = try(
-        module.s3_buckets[var.settings.s3_import.bucket_ref].name,
+        var.resources.s3_buckets[var.settings.s3_import.bucket_ref].name,
         var.settings.s3_import.bucket_name
       )
       ingestion_role = try(
-        module.iam_roles[var.settings.s3_import.ingestion_role_ref].id,
+        var.resources.iam_roles[var.settings.s3_import.ingestion_role_ref].id,
         var.settings.s3_import.ingestion_role
       )
       # bucket_name           = local.import_bucket_name
