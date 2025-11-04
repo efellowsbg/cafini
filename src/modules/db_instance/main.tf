@@ -1,4 +1,5 @@
 resource "aws_db_instance" "main" {
+  #  TODO: Add ability to reference s3_bucket_name in s3_import block with data source
   instance_class                        = var.settings.instance_class
   region                                = try(var.settings.region, null)
   allocated_storage                     = try(var.settings.allocated_storage, null)
@@ -97,8 +98,6 @@ resource "aws_db_instance" "main" {
         var.resources.iam_roles[var.settings.s3_import.ingestion_role_ref].id,
         var.settings.s3_import.ingestion_role
       )
-      # bucket_name           = local.import_bucket_name
-      # ingestion_role        = local.import_ingestion_role
       source_engine         = try(var.settings.s3_import.source_engine, "mysql")
       source_engine_version = try(var.settings.s3_import.source_engine_version, "5.6")
       bucket_prefix         = try(var.settings.s3_import.bucket_prefix, null)
