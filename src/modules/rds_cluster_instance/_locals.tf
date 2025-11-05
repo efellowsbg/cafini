@@ -1,6 +1,6 @@
 locals {
   cluster_identifier = try(
-    var.resources.rds_clusters[var.settings.cluster_ref].identifier,
+    var.resources.rds_clusters[var.settings.cluster_ref].cluster_identifier,
     var.settings.cluster_identifier
   )
 
