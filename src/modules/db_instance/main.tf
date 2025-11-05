@@ -1,5 +1,5 @@
 resource "aws_db_instance" "main" {
-  #  TODO: Add ability to reference s3_bucket_name in s3_import block with data source
+  #  TODO: Add ability to reference source_db_instance_identifier and source_dbi_resource_id in restore_to_point_in_time block with data source
   instance_class                        = var.settings.instance_class
   region                                = try(var.settings.region, null)
   allocated_storage                     = try(var.settings.allocated_storage, null)
