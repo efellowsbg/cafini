@@ -42,12 +42,12 @@ locals {
   )
 
   master_user_secret_kms_key_id = try(
-    var.resources.key_pairs[var.settings.master_user_secret_kms_key_ref].id,
+    var.resources.kms_keys[var.settings.master_user_secret_kms_key_ref].id,
     try(var.settings.master_user_secret_kms_key_id, null)
   )
 
   kms_key_id = try(
-    var.resources.key_pairs[var.settings.kms_key_ref].key_name,
+    var.resources.kms_keys[var.settings.kms_key_ref].key_name,
     try(var.settings.kms_key_id, null)
   )
 
