@@ -1,15 +1,16 @@
 rds_cluster_instances = {
   test_cluster_instance = {
-    cluster_ref                  = "test_cluster"
-    engine                       = "aurora-mysql"
-    instance_class               = "db.r6g.large"
-    engine_version               = "8.0.mysql_aurora.3.04.0"
-    apply_immediately            = true
-    auto_minor_version_upgrade   = true
-    availability_zone            = "eu-west-1a"
-    preferred_backup_window      = "03:00-04:00"
-    preferred_maintenance_window = "sun:05:00-sun:06:00"
-    performance_insights_enabled = true
+    cluster_ref                     = "test_cluster"
+    custom_iam_instance_profile_ref = "instance_profile_test"
+    engine                          = "aurora-mysql"
+    instance_class                  = "db.r6g.large"
+    engine_version                  = "8.0.mysql_aurora.3.04.0"
+    apply_immediately               = true
+    auto_minor_version_upgrade      = true
+    availability_zone               = "eu-west-1a"
+    preferred_backup_window         = "03:00-04:00"
+    preferred_maintenance_window    = "sun:05:00-sun:06:00"
+    performance_insights_enabled    = true
   }
 }
 
