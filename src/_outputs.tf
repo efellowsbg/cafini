@@ -158,9 +158,9 @@ output "config_configuration_recorders" {
   value = module.config_configuration_recorders
 }
 
-# output "rds_cluster_instances" {
-#   value = module.rds_cluster_instances
-# }
+output "rds_cluster_instances" {
+  value = module.rds_cluster_instances
+}
 
 output "rds_clusters" {
   value = module.rds_clusters
