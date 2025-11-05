@@ -157,3 +157,27 @@ output "cloudwatch_metric_alarms" {
 output "config_configuration_recorders" {
   value = module.config_configuration_recorders
 }
+
+# output "rds_cluster_instances" {
+#   value = module.rds_cluster_instances
+# }
+
+output "rds_clusters" {
+  value = module.rds_clusters
+}
+
+output "db_instances" {
+  value = module.db_instances
+}
+
+output "iam_user_policy_attachments" {
+  value = module.iam_user_policy_attachments
+}
+
+output "iam_group_policy_attachments" {
+  value = module.iam_group_policy_attachments
+}
+
+output "iam_role_policy_attachments" {
+  value = module.iam_role_policy_attachments
+}
