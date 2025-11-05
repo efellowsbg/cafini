@@ -1,43 +1,23 @@
 locals {
-  domain_auth_secret_arn = try(
-    var.resources.secretsmanager_secrets[var.settings.domain_auth_secret_ref].arn,
-    try(var.settings.domain_auth_secret_arn, null)
-  )
-
   db_subnet_group_name = try(
     var.resources.db_subnet_groups[var.settings.db_subnet_group_ref].name,
     try(var.settings.db_subnet_group_name, null)
   )
 
-  parameter_group_name = try(
-    var.resources.db_parameter_groups[var.settings.parameter_group_ref].name,
-    try(var.settings.parameter_group_name, null)
+  db_cluster_parameter_group_name = try(
+    var.resources.db_parameter_groups[var.settings.db_cluster_parameter_group_ref].name,
+    try(var.settings.db_cluster_parameter_group_name, null)
   )
 
-  option_group_name = try(
-    var.resources.db_option_groups[var.settings.option_group_ref].name,
-    try(var.settings.option_group_name, null)
+  db_instance_parameter_group_name = try(
+    var.resources.db_parameter_groups[var.settings.db_instance_parameter_group_ref].name,
+    try(var.settings.db_instance_parameter_group_name, null)
   )
 
   domain = try(
     var.resources.directory_service_directories[var.settings.domain_ref].id,
     try(var.settings.domain, null)
   )
-
-  domain_dns_ips = try(
-    var.resources.directory_service_directories[var.settings.domain_dns_ips_rf].dns_ip_addresses,
-    try(var.settings.domain_dns_ips, null)
-  )
-
-  # import_bucket_name = try(
-  #   var.resources.s3_buckets[var.settings.s3_import.bucket_ref].name,
-  #   var.settings.s3_import.bucket_name
-  # )
-
-  # import_ingestion_role = try(
-  #   var.resources.iam_roles[var.settings.s3_import.ingestion_role_ref].id,
-  #   var.settings.s3_import.ingestion_role
-  # )
 
   vpc_security_group_ids = (
     length(try(var.settings.vpc_security_group_refs, [])) > 0 ?
@@ -53,6 +33,12 @@ locals {
   monitoring_role_arn = try(
     var.resources.iam_roles[var.settings.monitoring_role_ref].arn,
     try(var.settings.monitoring_role_arn, null)
+  )
+
+  iam_roles = (
+    length(try(var.settings.iam_roles, [])) > 0 ?
+    [for ref in var.settings.iam_roles : var.resources.iam_roles[ref].id] :
+    try(var.settings.iam_roles, null)
   )
 
   master_user_secret_kms_key_id = try(
