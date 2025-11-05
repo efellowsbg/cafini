@@ -83,3 +83,5 @@ variable "cloudwatch_metric_alarms" { default = {} }
 variable "config_configuration_recorders" { default = {} }
 
 variable "db_instances" { default = {} }
+
+variable "rds_cluster_instances" { default = {} }
