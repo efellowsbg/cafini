@@ -85,3 +85,5 @@ variable "config_configuration_recorders" { default = {} }
 variable "rds_clusters" { default = {} }
 
 variable "db_instances" { default = {} }
+
+variable "rds_cluster_instances" { default = {} }
