@@ -6,12 +6,13 @@ module "rds_clusters" {
   global_settings = local.global_settings
 
   resources = {
-    iam_roles                     = module.iam_roles
-    security_groups               = module.security_groups
-    s3_buckets                    = module.s3_buckets
-    directory_service_directories = module.directory_service_directories
-    db_parameter_groups           = module.db_parameter_groups
-    db_subnet_groups              = module.db_subnet_groups
+    iam_roles       = module.iam_roles
+    security_groups = module.security_groups
+    s3_buckets      = module.s3_buckets
+    kms_keys        = module.kms_keys
+    # directory_service_directories = module.directory_service_directories
+    # db_parameter_groups           = module.db_parameter_groups
+    # db_subnet_groups              = module.db_subnet_groups
   }
 
   # client_config = {
