@@ -29,6 +29,7 @@ rds_clusters = {
     master_username              = "admin"
     master_password              = "SuperSecret123!"
     performance_insights_enabled = true
+    db_cluster_instance_class    = "db.r6g.large"
     vpc_security_group_ids = [
       "sg_test"
     ]
@@ -37,11 +38,6 @@ rds_clusters = {
       "eu-west-1b",
       "eu-west-1c"
     ]
-    db_cluster_instance_class = "db.r6g.large"
-    s3_import = {
-      bucket_ref         = "test_bucket"
-      ingestion_role_ref = "role_test"
-    }
   }
 }
 
@@ -68,7 +64,7 @@ kms_keys = {
 
 iam_instance_profiles = {
   instance_profile_test = {
-    name = "test-instance-profile"
+    name = "AWSRDSCustomtestrole"
     #    path = "/"
     #    role_ref = "test_role"
   }
