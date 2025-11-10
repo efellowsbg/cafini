@@ -87,3 +87,5 @@ variable "rds_clusters" { default = {} }
 variable "db_instances" { default = {} }
 
 variable "rds_cluster_instances" { default = {} }
+
+variable "directory_service_directories" { default = {} }

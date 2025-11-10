@@ -181,3 +181,7 @@ output "iam_group_policy_attachments" {
 output "iam_role_policy_attachments" {
   value = module.iam_role_policy_attachments
 }
+
+output "directory_service_directories" {
+  value = module.directory_service_directories
+}
