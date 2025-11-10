@@ -6,7 +6,6 @@ module "db_option_groups" {
   global_settings = local.global_settings
 
   resources = {
-    # db_security_groups = module.db_security_groups
     security_groups = module.security_groups
   }
 
