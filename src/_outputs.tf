@@ -185,3 +185,7 @@ output "iam_role_policy_attachments" {
 output "directory_service_directories" {
   value = module.directory_service_directories
 }
+
+output "db_parameter_groups" {
+  value = module.db_parameter_groups
+}
