@@ -11,11 +11,28 @@ resource "aws_db_option_group" "main" {
   dynamic "option" {
     for_each = try(var.settings.options, {})
     content {
-      option_name                    = option.value.option_name
-      port                           = try(parameter.value.port, null)
-      version                        = try(parameter.value.version, null)
-      db_security_group_memberships  = try(parameter.value.db_security_group_memberships, null)
-      vpc_security_group_memberships = try(parameter.value.vpc_security_group_memberships, null)
+      option_name = option.value.option_name
+      port        = try(option.value.port, null)
+      version     = try(option.value.version, null)
+      db_security_group_memberships = try(
+        length(try(option.value.db_security_group_memberships_refs, [])) > 0 ?
+        [
+          for ref in try(option.value.db_security_group_memberships_refs, []) :
+          try(var.resources.db_security_groups[ref].security_group_name, null)
+        ]
+        : try(option.value.db_security_group_memberships, null),
+        null
+      )
+
+      vpc_security_group_memberships = try(
+        length(try(option.value.vpc_security_group_memberships_refs, [])) > 0 ?
+        [
+          for ref in try(option.value.vpc_security_group_memberships_refs, []) :
+          try(var.resources.security_groups[ref].id, null)
+        ]
+        : try(option.value.vpc_security_group_memberships, null),
+        null
+      )
 
       dynamic "option_settings" {
         for_each = try(option.value.option_settings, {})
