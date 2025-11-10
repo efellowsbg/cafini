@@ -17,16 +17,30 @@ resource "aws_directory_service_directory" "main" {
     content {
       customer_username = var.settings.connect_settings.customer_username
       customer_dns_ips  = var.settings.connect_settings.customer_dns_ips
-      subnet_ids        = local.con_subnet_ids
-      vpc_id            = local.con_vpc_id
+      vpc_id = (
+        var.settings.connect_settings.vpc_ref != null
+        ? var.resources.vpcs[var.settings.connect_settings.vpc_ref].id
+        : var.settings.connect_settings.vpc_id
+      )
+      subnet_ids = length(try(var.settings.connect_settings.subnet_refs, [])) > 0 ? [
+        for ref in var.settings.connect_settings.subnet_refs :
+        var.resources.vpcs[var.settings.connect_settings.vpc_ref].subnets[ref].id
+      ] : var.settings.connect_settings.subnet_ids
     }
   }
 
   dynamic "vpc_settings" {
     for_each = can(var.settings.vpc_settings) ? [1] : []
     content {
-      vpc_id     = local.vpc_id
-      subnet_ids = local.subnet_ids
+      vpc_id = (
+        var.settings.vpc_settings.vpc_ref != null
+        ? var.resources.vpcs[var.settings.vpc_settings.vpc_ref].id
+        : var.settings.vpc_settings.vpc_id
+      )
+      subnet_ids = length(try(var.settings.vpc_settings.subnet_refs, [])) > 0 ? [
+        for ref in var.settings.vpc_settings.subnet_refs :
+        var.resources.vpcs[var.settings.vpc_settings.vpc_ref].subnets[ref].id
+      ] : var.settings.vpc_settings.subnet_ids
     }
   }
 }
