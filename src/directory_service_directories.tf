@@ -6,7 +6,7 @@ module "directory_service_directories" {
   global_settings = local.global_settings
 
   resources = {
-    # vpcs = module.vpcs
+    vpcs = module.vpcs
   }
 
   # client_config = {
