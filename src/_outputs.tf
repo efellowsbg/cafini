@@ -189,3 +189,7 @@ output "directory_service_directories" {
 output "db_parameter_groups" {
   value = module.db_parameter_groups
 }
+
+output "db_option_groups" {
+  value = module.db_parameter_groups
+}
