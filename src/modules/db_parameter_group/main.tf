@@ -4,7 +4,7 @@ resource "aws_db_parameter_group" "main" {
   name         = try(var.settings.name, null)
   name_prefix  = try(var.settings.name_prefix, null)
   description  = try(var.settings.description, null)
-  skip_destroy = try(var.settings.description, null)
+  skip_destroy = try(var.settings.skip_destroy, null)
   tags         = local.tags
 
   dynamic "parameter" {
