@@ -9,7 +9,7 @@ resource "aws_directory_service_directory" "main" {
   short_name                           = try(var.settings.short_name, null)
   enable_sso                           = try(var.settings.enable_sso, null)
   edition                              = try(var.settings.edition, null)
-  type                                 = var.settings.type
+  type                                 = try(var.settings.type, null)
   tags                                 = local.tags
 
   dynamic "connect_settings" {
