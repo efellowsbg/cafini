@@ -12,13 +12,13 @@ resource "aws_directory_service_directory" "main" {
   type                                 = var.settings.type
   tags                                 = local.tags
 
-  dynamic "connecting_settings" {
-    for_each = can(var.settings.connecting_settings) ? [1] : []
+  dynamic "connect_settings" {
+    for_each = can(var.settings.connect_settings) ? [1] : []
     content {
-      customer_username = var.settings.connecting_settings.customer_username
-      customer_dns_ips  = var.settings.connecting_settings.customer_dns_ips
-      subnet_ids        = try(local.con_subnet_ids, var.settings.connecting_settings.subnet_ids)
-      vpc_id            = try(local.con_vpc_id, var.settings.connecting_settings.vpc_id)
+      customer_username = var.settings.connect_settings.customer_username
+      customer_dns_ips  = var.settings.connect_settings.customer_dns_ips
+      subnet_ids        = local.con_subnet_ids
+      vpc_id            = local.con_vpc_id
     }
   }
 
