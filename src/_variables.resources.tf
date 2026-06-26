@@ -93,3 +93,57 @@ variable "db_instances" { default = {} }
 variable "rds_cluster_instances" { default = {} }
 
 variable "directory_service_directories" { default = {} }
+
+variable "ssm_parameters" { default = {} }
+
+variable "sqs_queues" { default = {} }
+
+variable "sqs_queue_policies" { default = {} }
+
+variable "sns_topic_policies" { default = {} }
+
+variable "sns_topic_subscriptions" { default = {} }
+
+variable "secretsmanager_secret_versions" { default = {} }
+
+variable "s3_bucket_public_access_blocks" { default = {} }
+
+variable "s3_bucket_versionings" { default = {} }
+
+variable "s3_bucket_server_side_encryption_configurations" { default = {} }
+
+variable "route53_records" { default = {} }
+
+variable "security_group_rules" { default = {} }
+
+variable "iam_role_policies" { default = {} }
+
+variable "iam_openid_connect_providers" { default = {} }
+
+variable "eks_addons" { default = {} }
+
+variable "eks_pod_identity_associations" { default = {} }
+
+variable "eks_access_entries" { default = {} }
+
+variable "eks_access_policy_associations" { default = {} }
+
+variable "routes" { default = {} }
+
+variable "vpc_peering_connections" { default = {} }
+
+variable "vpc_peering_connection_options" { default = {} }
+
+variable "ec2_client_vpn_endpoints" { default = {} }
+
+variable "ec2_client_vpn_network_associations" { default = {} }
+
+variable "ec2_client_vpn_routes" { default = {} }
+
+variable "ec2_client_vpn_authorization_rules" { default = {} }
+
+variable "sesv2_configuration_sets" { default = {} }
+
+variable "sesv2_configuration_set_event_destinations" { default = {} }
+
+variable "mq_brokers" { default = {} }

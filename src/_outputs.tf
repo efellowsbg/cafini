@@ -193,3 +193,111 @@ output "db_parameter_groups" {
 output "db_option_groups" {
   value = module.db_parameter_groups
 }
+
+output "ssm_parameters" {
+  value = module.ssm_parameters
+}
+
+output "sqs_queues" {
+  value = module.sqs_queues
+}
+
+output "sqs_queue_policies" {
+  value = module.sqs_queue_policies
+}
+
+output "sns_topic_policies" {
+  value = module.sns_topic_policies
+}
+
+output "sns_topic_subscriptions" {
+  value = module.sns_topic_subscriptions
+}
+
+output "secretsmanager_secret_versions" {
+  value = module.secretsmanager_secret_versions
+}
+
+output "s3_bucket_public_access_blocks" {
+  value = module.s3_bucket_public_access_blocks
+}
+
+output "s3_bucket_versionings" {
+  value = module.s3_bucket_versionings
+}
+
+output "s3_bucket_server_side_encryption_configurations" {
+  value = module.s3_bucket_server_side_encryption_configurations
+}
+
+output "route53_records" {
+  value = module.route53_records
+}
+
+output "security_group_rules" {
+  value = module.security_group_rules
+}
+
+output "iam_role_policies" {
+  value = module.iam_role_policies
+}
+
+output "iam_openid_connect_providers" {
+  value = module.iam_openid_connect_providers
+}
+
+output "eks_addons" {
+  value = module.eks_addons
+}
+
+output "eks_pod_identity_associations" {
+  value = module.eks_pod_identity_associations
+}
+
+output "eks_access_entries" {
+  value = module.eks_access_entries
+}
+
+output "eks_access_policy_associations" {
+  value = module.eks_access_policy_associations
+}
+
+output "routes" {
+  value = module.routes
+}
+
+output "vpc_peering_connections" {
+  value = module.vpc_peering_connections
+}
+
+output "vpc_peering_connection_options" {
+  value = module.vpc_peering_connection_options
+}
+
+output "ec2_client_vpn_endpoints" {
+  value = module.ec2_client_vpn_endpoints
+}
+
+output "ec2_client_vpn_network_associations" {
+  value = module.ec2_client_vpn_network_associations
+}
+
+output "ec2_client_vpn_routes" {
+  value = module.ec2_client_vpn_routes
+}
+
+output "ec2_client_vpn_authorization_rules" {
+  value = module.ec2_client_vpn_authorization_rules
+}
+
+output "sesv2_configuration_sets" {
+  value = module.sesv2_configuration_sets
+}
+
+output "sesv2_configuration_set_event_destinations" {
+  value = module.sesv2_configuration_set_event_destinations
+}
+
+output "mq_brokers" {
+  value = module.mq_brokers
+}
